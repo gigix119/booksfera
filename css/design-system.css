@@ -68,12 +68,13 @@
   /* —— Typography: scale —— */
   --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
   --text-sm: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
-  --text-base: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
+  /* Body: 16–18px, mobile-first */
+  --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --text-lg: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
   --text-xl: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
   --text-2xl: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
   --text-3xl: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
-  --text-hero: clamp(2.125rem, 1.5rem + 2.5vw, 4rem);
+  --text-hero: clamp(1.875rem, 1.45rem + 1.4vw, 2.625rem);
 
   /* Semantic aliases */
   --type-eyebrow: var(--text-xs);
@@ -87,8 +88,8 @@
 
   --leading-tight: 1.15;
   --leading-snug: 1.35;
-  --leading-relaxed: 1.65;
-  --leading-reading: 1.75;
+  --leading-relaxed: 1.62;
+  --leading-reading: 1.65;
 
   --tracking-tight: -0.02em;
   --tracking-wide: 0.06em;
@@ -111,8 +112,8 @@
   --space-20: 5rem;
   --space-24: 6rem;
 
-  /* Section vertical rhythm */
-  --section-pad-y: var(--space-14);
+  /* Section vertical rhythm — tighter on small screens */
+  --section-pad-y: var(--space-10);
   --stack-gap-dense: var(--space-4);
   --stack-gap: var(--space-6);
   --stack-gap-loose: var(--space-10);
@@ -135,10 +136,10 @@
   --shadow-card: 0 1px 2px rgba(15, 23, 41, 0.04), 0 4px 24px rgba(15, 23, 41, 0.06);
   --shadow-float: 0 8px 40px rgba(15, 23, 41, 0.08);
 
-  /* —— Layout widths —— */
-  --max-content: 72rem;
-  --max-reading: 40rem;
-  --max-book-meta: 42rem;
+  /* —— Layout widths —— (680px content + 16px gutters) */
+  --max-content: 42.5rem;
+  --max-reading: 42.5rem;
+  --max-book-meta: 42.5rem;
 
   /* —— Grid (used by .layout-grid; phones = 4 cols, md+ = 12) —— */
   --grid-columns: 4;
@@ -146,9 +147,9 @@
   --grid-gap-lg: var(--space-6);
 
   /* —— Header / page gutter —— */
-  --header-h: 3.5rem;
-  --page-pad-inline: max(var(--space-5), env(safe-area-inset-left, 0px));
-  --page-pad-inline-end: max(var(--space-5), env(safe-area-inset-right, 0px));
+  --header-h: 3.25rem;
+  --page-pad-inline: max(1rem, env(safe-area-inset-left, 0px));
+  --page-pad-inline-end: max(1rem, env(safe-area-inset-right, 0px));
 
   /* —— Motion —— */
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
@@ -164,10 +165,10 @@
 
 @media (min-width: 768px) {
   :root {
-    --header-h: 4rem;
-    --section-pad-y: var(--space-20);
-    --page-pad-inline: max(var(--space-6), env(safe-area-inset-left, 0px));
-    --page-pad-inline-end: max(var(--space-6), env(safe-area-inset-right, 0px));
+    --header-h: 3.5rem;
+    --section-pad-y: var(--space-14);
+    --page-pad-inline: max(1rem, env(safe-area-inset-left, 0px));
+    --page-pad-inline-end: max(1rem, env(safe-area-inset-right, 0px));
     --grid-columns: 12;
     --grid-gap: var(--space-6);
   }

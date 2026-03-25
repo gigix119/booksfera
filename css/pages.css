@@ -2,42 +2,37 @@
 
 /* Bottom breathing room; global safe-area lives on `body` (base.css) */
 #main {
-  padding-bottom: var(--space-8);
+  padding-bottom: var(--space-6);
 }
 
-/* ——— Landing ——— */
+/* ——— Landing — mobile-first: compact hero, no split layout ——— */
 .hero {
-  padding-block: var(--space-14) var(--space-12);
+  padding-block: var(--space-8) var(--space-10);
   position: relative;
   overflow: hidden;
 }
 
 @media (min-width: 768px) {
   .hero {
-    padding-block: var(--space-20) var(--space-16);
+    padding-block: var(--space-12) var(--space-10);
+  }
+}
+
+.page-home .hero {
+  padding-block: var(--space-8) var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .page-home .hero {
+    padding-block: var(--space-10) var(--space-8);
   }
 }
 
 .hero__grid {
-  display: grid;
-  gap: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
   align-items: stretch;
-}
-
-@media (min-width: 900px) {
-  .hero__grid {
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-    align-items: center;
-  }
-
-  .hero__title {
-    max-width: 14ch;
-  }
-
-  .hero__subtitle {
-    max-width: 34ch;
-  }
 }
 
 .hero__eyebrow {
@@ -47,27 +42,32 @@
   letter-spacing: var(--tracking-wide);
   text-transform: uppercase;
   color: var(--color-ink-subtle);
-  margin: 0 0 var(--space-5);
+  margin: 0 0 var(--space-3);
 }
 
 .hero__title {
   font-family: var(--font-display);
   font-size: var(--text-hero);
   font-weight: 600;
-  line-height: var(--leading-tight);
+  line-height: 1.2;
   letter-spacing: var(--tracking-tight);
   color: var(--color-navy);
-  margin: 0 0 var(--space-6);
-  /* Phones: use full measure for comfortable line breaks; narrow measure is a wide-layout luxury */
-  max-width: none;
+  margin: 0 0 var(--space-4);
+  max-width: 20ch;
+}
+
+@media (min-width: 480px) {
+  .hero__title {
+    max-width: none;
+  }
 }
 
 .hero__subtitle {
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   color: var(--color-ink-muted);
-  line-height: var(--leading-relaxed);
-  margin: 0 0 var(--space-8);
-  max-width: min(100%, 52ch);
+  line-height: 1.62;
+  margin: 0 0 var(--space-6);
+  max-width: min(100%, 48ch);
 }
 
 /* Primary actions: full-width stack on phones — easy thumb reach, no precision taps */
@@ -535,6 +535,15 @@
   padding-top: var(--space-8);
   font-size: var(--text-sm);
   color: var(--color-ink-subtle);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.reader-end__sep {
+  opacity: 0.4;
+  user-select: none;
 }
 
 .reader-end a {
@@ -554,6 +563,42 @@
 }
 
 /* ——— Homepage — knowledge platform (editorial, not blog) ——— */
+.card-grid--single {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin-inline: 0;
+}
+
+.home-placeholder {
+  margin: 0;
+  text-align: center;
+}
+
+.home-placeholder__link {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: var(--tracking-wide);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--color-brand);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch-min);
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: background var(--duration-fast) var(--ease-out), color var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .home-placeholder__link:hover {
+    background: rgba(15, 23, 41, 0.06);
+    text-decoration: none;
+  }
+}
+
 .page-home .hero {
   border-bottom: 1px solid var(--color-line-subtle);
 }
@@ -766,8 +811,17 @@
   margin-bottom: 0;
 }
 
+.about-block--solo {
+  gap: 0;
+}
+
+.about-block--solo .about-block__prose {
+  font-size: var(--text-base);
+  line-height: 1.62;
+}
+
 @media (min-width: 768px) {
-  .about-block {
+  .about-block:not(.about-block--solo) {
     flex-direction: row;
     align-items: flex-start;
     gap: var(--space-12);
@@ -778,7 +832,7 @@
     max-width: 22ch;
   }
 
-  .about-block__prose {
+  .about-block:not(.about-block--solo) .about-block__prose {
     flex: 1;
     min-width: 0;
   }
@@ -842,7 +896,7 @@
 .book-page {
   background: var(--color-bg-page);
   --book-nav-h: 3.75rem;
-  --book-prose-max: 38rem;
+  --book-prose-max: 42.5rem;
 }
 
 .book-page .book-main [id] {
@@ -1081,8 +1135,8 @@
 
 .book-copy {
   font-family: var(--font-body);
-  font-size: var(--text-lg);
-  line-height: var(--leading-reading);
+  font-size: var(--text-base);
+  line-height: 1.62;
   color: var(--color-ink-primary);
   margin: 0;
   max-width: var(--max-reading);
@@ -1123,27 +1177,23 @@
 }
 
 /* Reveal: only when JS runs (see inline script in HTML) */
+/* Light reveal: opacity only — fast, low cost */
 html.bf-reveal [data-reveal]:not(.is-visible) {
   opacity: 0;
-  transform: translateY(16px);
 }
 
 html.bf-reveal [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+  transition: opacity 0.2s ease-out;
 }
 
-/* Softer entrance on book page */
 html.bf-reveal .book-page [data-reveal]:not(.is-visible) {
   opacity: 0;
-  transform: translateY(10px);
 }
 
 html.bf-reveal .book-page [data-reveal].is-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.85s var(--ease-out), transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.2s ease-out;
 }
 
 .book-author-line {
@@ -1380,7 +1430,7 @@ html.bf-reveal .book-page [data-reveal].is-visible {
 
 .book-article .book-copy {
   font-size: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
-  line-height: 1.78;
+  line-height: 1.62;
   max-width: min(var(--book-prose-max), 100%);
   font-feature-settings: "kern" 1, "liga" 1, "onum" 1;
   text-rendering: optimizeLegibility;
