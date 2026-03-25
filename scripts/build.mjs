@@ -16,6 +16,7 @@ const siteUrl = (process.env.CF_PAGES_URL || process.env.SITE_URL || "")
 
 const pages = {
   "index.html": { path: "/" },
+  "samolubny-gen.html": { path: "/samolubny-gen.html" },
   "book.html": { path: "/book.html" },
   "reader.html": { path: "/reader.html" },
 };
@@ -80,7 +81,7 @@ const robots = [
 fs.writeFileSync(path.join(dist, "robots.txt"), robots + "\n", "utf8");
 
 if (siteUrl) {
-  const locs = ["/", "/book.html", "/reader.html"];
+  const locs = ["/", "/samolubny-gen.html", "/book.html", "/reader.html"];
   const body = locs
     .map((p) => {
       const loc = absoluteUrl(p);

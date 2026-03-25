@@ -91,6 +91,50 @@
   font-weight: 600;
 }
 
+/* Dwie pozycje — czytelny odstęp na małych ekranach */
+.nav--gateway {
+  gap: var(--space-5);
+  flex-shrink: 0;
+  margin-left: auto;
+}
+
+.nav--gateway .nav__link {
+  font-size: var(--text-base);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  padding-inline: var(--space-3);
+  min-height: var(--touch-comfort);
+}
+
+.site-header--gateway .site-header__inner {
+  min-height: calc(var(--header-h) + var(--space-1));
+  gap: var(--space-4);
+  align-items: center;
+}
+
+@media (max-width: 380px) {
+  .site-header--gateway .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: var(--space-3);
+  }
+
+  .nav--gateway {
+    width: 100%;
+    margin-left: 0;
+    justify-content: flex-start;
+    gap: var(--space-6);
+  }
+}
+
+/* Przyciski CTA — polski tekst bez sztucznego CAPS (czytelniej na telefonie) */
+.btn--gateway,
+.home-feature-card__cta {
+  text-transform: none;
+  letter-spacing: 0.03em;
+  font-size: var(--text-base);
+  font-weight: 600;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .nav__link--primary:hover {
     color: var(--color-brand);

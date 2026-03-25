@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
-      content="Samolubny gen — Richard Dawkins. Pełna analiza redakcyjna: teza, krytyka, miejsce błędów interpretacji, werdykt i FAQ."
+      content="Samolubny gen — Richard Dawkins. Pełna analiza: wstęp, TL;DR, krytyka, werdykt, FAQ."
     />
     <title>Samolubny gen — analiza — Booksfera</title>
-    <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <script>
       document.documentElement.classList.add("bf-reveal");
     </script>
@@ -21,13 +21,12 @@
     />
     <link rel="stylesheet" href="css/main.css" />
   </head>
-  <body class="book-page book-page--has-return">
+  <body class="book-page book-page--has-return book-page--no-toc">
     <a class="skip-link" href="#book-content">Przejdź do treści</a>
 
     <div class="book-return-bar" role="navigation" aria-label="Powrót">
-      <div class="container book-return-bar__inner">
-        <a class="book-return-bar__back" href="index.html">← Wróć do strony głównej</a>
-        <a class="book-return-bar__mark" href="index.html">Booksfera</a>
+      <div class="container book-return-bar__inner book-return-bar__inner--solo">
+        <a class="book-return-bar__back" href="index.html">← Wróć</a>
       </div>
     </div>
 
@@ -44,14 +43,15 @@
                 alt="Okładka książki Samolubny gen"
                 width="640"
                 height="960"
+                sizes="(max-width: 767px) min(88vw, 15rem), 16.5rem"
                 loading="eager"
                 decoding="async"
+                fetchpriority="high"
                 itemprop="image"
               />
             </div>
           </div>
           <div class="book-intro">
-            <p class="book-kicker">Nauka · ewolucja · pierwsze wydanie 1976</p>
             <h1 class="book-title" id="book-title">Samolubny gen</h1>
             <p class="book-author-line">
               <span itemprop="author" itemscope itemtype="https://schema.org/Person">
@@ -60,56 +60,15 @@
             </p>
             <p class="book-lede">
               Klasyczne ujęcie doboru naturalnego z perspektywy genu: jasne, kontrowersyjne w
-              interpretacji, niezbędne do zrozumienia współczesnej biologii ewolucyjnej. Poniżej —
-              pełna notatka redakcyjna: od streszczenia po krytykę i miejsce typowych nieporozumień.
+              interpretacji, niezbędne do zrozumienia współczesnej biologii ewolucyjnej.
             </p>
-            <div class="book-actions">
-              <a class="btn btn--primary" href="#tldr">Zacznij od TL;DR</a>
-              <a class="btn btn--ghost" href="reader.html">Fragment do czytania</a>
-            </div>
+            <ul class="book-hero-meta" aria-label="Kontekst">
+              <li class="book-hero-meta__item">Nauka</li>
+              <li class="book-hero-meta__item">Ewolucja</li>
+              <li class="book-hero-meta__item"><time datetime="1976">1976</time></li>
+            </ul>
           </div>
         </header>
-
-        <div class="container container--narrow">
-          <dl class="book-meta-strip" data-reveal>
-            <div class="book-meta-strip__group">
-              <dt>Autor</dt>
-              <dd>Richard Dawkins</dd>
-            </div>
-            <div class="book-meta-strip__group">
-              <dt>Pierwsze wydanie</dt>
-              <dd><time datetime="1976">1976</time></dd>
-            </div>
-            <div class="book-meta-strip__group">
-              <dt>Czas czytania książki</dt>
-              <dd>Uważne · ok. 8–10 godz.</dd>
-            </div>
-            <div class="book-meta-strip__group">
-              <dt>Forma</dt>
-              <dd>Popularnonaukowa</dd>
-            </div>
-          </dl>
-        </div>
-
-        <nav
-          class="book-section-nav"
-          id="article"
-          aria-label="Sekcje analizy"
-          data-book-nav
-          data-reveal
-        >
-          <div class="container book-section-nav__inner">
-            <div class="book-section-nav__track">
-              <a class="book-section-nav__link is-active" href="#wstep" data-section-id="wstep">Wstęp</a>
-              <a class="book-section-nav__link" href="#tldr" data-section-id="tldr">TL;DR</a>
-              <a class="book-section-nav__link" href="#kluczowe" data-section-id="kluczowe">Kluczowe idee</a>
-              <a class="book-section-nav__link" href="#krytyka" data-section-id="krytyka">Krytyka</a>
-              <a class="book-section-nav__link" href="#myli" data-section-id="myli">Gdzie się myli</a>
-              <a class="book-section-nav__link" href="#werdykt" data-section-id="werdykt">Werdykt</a>
-              <a class="book-section-nav__link" href="#faq" data-section-id="faq">FAQ</a>
-            </div>
-          </div>
-        </nav>
 
         <div class="book-article-wrap container container--narrow">
           <div class="book-article" data-reveal>
@@ -127,18 +86,33 @@
                   można rozumieć na poziomie replikatorów — genów „dba” o własną trwałość w kolejnych
                   pokoleniach.
                 </p>
+              </div>
+            </section>
+
+            <section
+              id="o-czym"
+              class="book-article__section"
+              data-book-section
+              aria-labelledby="o-czym-heading"
+            >
+              <h2 id="o-czym-heading" class="book-article__heading">O czym jest ta książka</h2>
+              <div class="book-copy">
                 <p>
                   To nie podręcznik akademicki, ale też nie lekka rozrywka: wymaga uwagi i gotowości do
                   rozróżnienia metafory (np. „samolubny”) od mechanizmów, które autor opisuje precyzyjnie.
-                  Ta analiza trzyma się kolejności czytania: najpierw skrót (TL;DR), potem rozwinięcie
-                  idei, krytyka zewnętrzna, typowe błędy czytania — i na końcu werdykt oraz pytania, które
-                  wracają w rozmowach z czytelnikami.
                 </p>
               </div>
             </section>
 
             <section id="tldr" class="book-article__section" data-book-section aria-labelledby="tldr-heading">
               <h2 id="tldr-heading" class="book-article__heading">TL;DR</h2>
+              <div class="book-copy">
+                <p>
+                  Ta analiza trzyma się kolejności czytania: najpierw skrót (TL;DR), potem rozwinięcie
+                  idei, krytyka zewnętrzna, typowe błędy czytania — i na końcu werdykt oraz pytania, które
+                  wracają w rozmowach z czytelnikami.
+                </p>
+              </div>
               <div class="book-tldr">
                 <p class="book-tldr__label">W skrócie</p>
                 <ul class="book-tldr__list">
@@ -224,7 +198,7 @@
             </section>
 
             <section id="myli" class="book-article__section" data-book-section aria-labelledby="myli-heading">
-              <h2 id="myli-heading" class="book-article__heading">Gdzie Dawkins się myli — a gdzie myli się czytelnik</h2>
+              <h2 id="myli-heading" class="book-article__heading">Gdzie Dawkins się myli</h2>
               <div class="book-copy">
                 <p>
                   Sam Dawkins nie „myli się” w sensie prostego błędu faktograficznego w opisie doboru; raczej
@@ -274,7 +248,6 @@
           </div>
 
           <section id="faq" class="book-faq-section" data-book-section aria-labelledby="faq-heading" data-reveal>
-            <p class="book-faq-section__label">Dla czytelnika</p>
             <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">FAQ</h2>
             <div class="book-faq">
               <details class="book-faq__item">
@@ -319,13 +292,9 @@
       </article>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer site-footer--gateway">
       <div class="container">
-        <p class="reader-end">
-          <a href="index.html">← Strona główna</a>
-          <span class="reader-end__sep" aria-hidden="true">·</span>
-          <a href="reader.html">Fragment</a>
-        </p>
+        <p class="site-footer__minimal"><a href="index.html">← Strona główna</a></p>
       </div>
     </footer>
 
