@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
-      content="Booksfera — wejście do książek. Strona główna to nawigacja."
+      content="Booksfera — analiza „Samolubnego genu” Richarda Dawkinsa. Wejdź w treść."
     />
-    <title>Booksfera</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <title>Booksfera — książki z analizą</title>
+    <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
     <script>
       document.documentElement.classList.add("bf-reveal");
     </script>
@@ -28,67 +28,67 @@
       <div class="container site-header__inner">
         <a class="logo" href="index.html">Booksfera</a>
         <nav class="nav" aria-label="Nawigacja">
-          <a class="nav__link" href="#polka">Półka</a>
-          <a class="nav__link nav__link--primary" href="#o-nas">O nas</a>
+          <a class="nav__link" href="#ksiazka">Wybrana pozycja</a>
+          <a class="nav__link nav__link--primary" href="samolubny-gen.html">Czytaj analizę</a>
+          <a class="nav__link" href="#o-nas">O Booksferze</a>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <section class="hero" aria-labelledby="hero-title">
-        <div class="container hero__grid">
-          <div data-reveal>
-            <h1 id="hero-title" class="hero__title">Treść poza stroną główną</h1>
-            <p class="hero__subtitle">
-              Ta strona tylko prowadzi do książek. Analizy i notatki redakcyjne — wraz z rozwojem
-              serwisu — będą przy poszczególnych tytułach.
-            </p>
-            <div class="hero__actions">
-              <a class="btn btn--primary" href="#polka">Zobacz półkę</a>
-              <a class="btn btn--ghost" href="samolubny-gen.html">Samolubny gen</a>
-            </div>
-          </div>
+      <section class="home-intro" aria-labelledby="home-title">
+        <div class="container">
+          <h1 id="home-title" class="home-intro__title">Książki czytane uważnie</h1>
+          <p class="home-intro__text">
+            Booksfera to miejsce na jedną rzecz naraz: dziś — redakcyjna analiza
+            <em>Samolubnego genu</em> Richarda Dawkinsa. Strona główna prowadzi do treści; produktem jest
+            analiza na podstronie.
+          </p>
         </div>
       </section>
 
-      <section id="polka" class="section section--home" aria-labelledby="polka-title">
+      <section id="ksiazka" class="section section--home" aria-labelledby="ksiazka-title">
         <div class="container">
-          <header class="section__head" data-reveal>
-            <p class="section__label">Półka</p>
-            <h2 id="polka-title" class="section__title">Na półce</h2>
+          <header class="section__head section__head--feature">
+            <p class="section__label">Dziś na Booksferze</p>
+            <h2 id="ksiazka-title" class="section__title section__title--feature">Analiza do czytania od deski do deski</h2>
           </header>
-
-          <div class="card-grid card-grid--single">
-            <article class="book-card" data-reveal>
-              <a class="book-card__link" href="samolubny-gen.html">
-                <div class="book-card__cover">
-                  <span class="book-card__cover--placeholder" aria-hidden="true"
-                    >Samolubny<br />gen</span
-                  >
-                </div>
-                <div class="book-card__body">
-                  <span class="book-card__meta">Nauka · ewolucja</span>
-                  <h3 class="book-card__title">Samolubny gen</h3>
-                  <p class="book-card__author">Richard Dawkins</p>
-                  <p class="book-card__excerpt">
-                    Ewolucja z perspektywy genu — klasyka do czytania uważnego.
-                  </p>
-                </div>
-              </a>
-            </article>
-          </div>
+          <article class="home-feature-card" data-reveal>
+            <a class="home-feature-card__link" href="samolubny-gen.html">
+              <div class="home-feature-card__cover">
+                <img
+                  src="SamolubnyGen.jpg"
+                  alt="Okładka książki Samolubny gen"
+                  width="640"
+                  height="960"
+                  loading="eager"
+                  decoding="async"
+                />
+              </div>
+              <div class="home-feature-card__body">
+                <p class="home-feature-card__meta">Nauka · ewolucja · 1976</p>
+                <h3 class="home-feature-card__name">Samolubny gen</h3>
+                <p class="home-feature-card__author">Richard Dawkins</p>
+                <p class="home-feature-card__teaser">
+                  Dobór naturalny rozumiany z perspektywy genu — książka, która ułożyła język współczesnej
+                  biologii ewolucyjnej. Poniżej: pełna analiza redakcyjna: teza, krytyka, miejsce błędów
+                  interpretacji i werdykt.
+                </p>
+                <span class="home-feature-card__cta btn btn--primary">Czytaj analizę</span>
+              </div>
+            </a>
+          </article>
         </div>
       </section>
 
       <section id="o-nas" class="section section--home section--muted" aria-labelledby="o-nas-title">
         <div class="container container--narrow">
-          <header class="section__head" data-reveal>
-            <h2 id="o-nas-title" class="section__title section__title--wide">O Booksferze</h2>
-          </header>
+          <h2 id="o-nas-title" class="section__title">O Booksferze</h2>
           <div class="about-block about-block--solo" data-reveal>
             <div class="about-block__prose">
               <p>
-                Produktem jest strona książki — nie ta strona główna. Interfejs jest celowo oszczędny.
+                Nie skracamy do „kafelków”: jedna okładka, jeden długi artykuł. Typografia i marginesy są
+                liczone pod ekran telefonu i spokojne czytanie w pociągu albo wieczorem przy lampie.
               </p>
             </div>
           </div>
@@ -101,13 +101,13 @@
         <div class="site-footer__grid site-footer__grid--compact">
           <div>
             <p class="site-footer__brand">Booksfera</p>
-            <p class="site-footer__tagline">Nawigacja do treści. © Booksfera</p>
+            <p class="site-footer__tagline">Analiza książkowa · © Booksfera</p>
           </div>
           <div class="footer-col">
-            <p class="footer-col__title">Linki</p>
+            <p class="footer-col__title">Treść</p>
             <ul>
-              <li><a href="#polka">Półka</a></li>
-              <li><a href="samolubny-gen.html">Samolubny gen</a></li>
+              <li><a href="samolubny-gen.html">Samolubny gen — analiza</a></li>
+              <li><a href="reader.html">Fragment do czytania</a></li>
               <li><a href="mailto:hello@booksfera.com">Kontakt</a></li>
             </ul>
           </div>

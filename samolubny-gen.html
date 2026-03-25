@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
-      content="Samolubny gen — Richard Dawkins. Notatka redakcyjna i kontekst czytania na Booksfera."
+      content="Samolubny gen — Richard Dawkins. Pełna analiza redakcyjna: teza, krytyka, miejsce błędów interpretacji, werdykt i FAQ."
     />
-    <title>Samolubny gen — Booksfera</title>
-    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <title>Samolubny gen — analiza — Booksfera</title>
+    <link rel="icon" href="public/favicon.svg" type="image/svg+xml" />
     <script>
       document.documentElement.classList.add("bf-reveal");
     </script>
@@ -21,19 +21,15 @@
     />
     <link rel="stylesheet" href="css/main.css" />
   </head>
-  <body class="book-page">
+  <body class="book-page book-page--has-return">
     <a class="skip-link" href="#book-content">Przejdź do treści</a>
 
-    <header class="site-header">
-      <div class="container site-header__inner">
-        <a class="logo" href="index.html">Booksfera</a>
-        <nav class="nav" aria-label="Nawigacja">
-          <a class="nav__link" href="index.html">Start</a>
-          <a class="nav__link" href="index.html#polka">Półka</a>
-          <a class="nav__link nav__link--primary" href="reader.html">Czytaj</a>
-        </nav>
+    <div class="book-return-bar" role="navigation" aria-label="Powrót">
+      <div class="container book-return-bar__inner">
+        <a class="book-return-bar__back" href="index.html">← Wróć do strony głównej</a>
+        <a class="book-return-bar__mark" href="index.html">Booksfera</a>
       </div>
-    </header>
+    </div>
 
     <main id="main" class="book-main">
       <article id="book-content" itemscope itemtype="https://schema.org/Book">
@@ -42,12 +38,20 @@
 
         <header class="book-hero container" data-reveal>
           <div class="book-cover-wrap">
-            <div class="book-cover book-cover--placeholder" role="img" aria-label="Okładka: Samolubny gen">
-              Samolubny<br />gen
+            <div class="book-cover book-cover--has-img" role="img" aria-label="Okładka: Samolubny gen">
+              <img
+                src="SamolubnyGen.jpg"
+                alt="Okładka książki Samolubny gen"
+                width="640"
+                height="960"
+                loading="eager"
+                decoding="async"
+                itemprop="image"
+              />
             </div>
           </div>
           <div class="book-intro">
-            <p class="book-kicker">Nauka · ewolucja</p>
+            <p class="book-kicker">Nauka · ewolucja · pierwsze wydanie 1976</p>
             <h1 class="book-title" id="book-title">Samolubny gen</h1>
             <p class="book-author-line">
               <span itemprop="author" itemscope itemtype="https://schema.org/Person">
@@ -56,11 +60,12 @@
             </p>
             <p class="book-lede">
               Klasyczne ujęcie doboru naturalnego z perspektywy genu: jasne, kontrowersyjne w
-              interpretacji, niezbędne do zrozumienia współczesnej biologii.
+              interpretacji, niezbędne do zrozumienia współczesnej biologii ewolucyjnej. Poniżej —
+              pełna notatka redakcyjna: od streszczenia po krytykę i miejsce typowych nieporozumień.
             </p>
             <div class="book-actions">
-              <a class="btn btn--primary" href="reader.html">Fragment do czytania</a>
-              <a class="btn btn--ghost" href="#article">Notatka redakcyjna</a>
+              <a class="btn btn--primary" href="#tldr">Zacznij od TL;DR</a>
+              <a class="btn btn--ghost" href="reader.html">Fragment do czytania</a>
             </div>
           </div>
         </header>
@@ -76,7 +81,7 @@
               <dd><time datetime="1976">1976</time></dd>
             </div>
             <div class="book-meta-strip__group">
-              <dt>Czytanie</dt>
+              <dt>Czas czytania książki</dt>
               <dd>Uważne · ok. 8–10 godz.</dd>
             </div>
             <div class="book-meta-strip__group">
@@ -89,15 +94,17 @@
         <nav
           class="book-section-nav"
           id="article"
-          aria-label="Sekcje notatki"
+          aria-label="Sekcje analizy"
           data-book-nav
           data-reveal
         >
           <div class="container book-section-nav__inner">
             <div class="book-section-nav__track">
               <a class="book-section-nav__link is-active" href="#wstep" data-section-id="wstep">Wstęp</a>
-              <a class="book-section-nav__link" href="#teza" data-section-id="teza">Teza</a>
-              <a class="book-section-nav__link" href="#gen" data-section-id="gen">Gen</a>
+              <a class="book-section-nav__link" href="#tldr" data-section-id="tldr">TL;DR</a>
+              <a class="book-section-nav__link" href="#kluczowe" data-section-id="kluczowe">Kluczowe idee</a>
+              <a class="book-section-nav__link" href="#krytyka" data-section-id="krytyka">Krytyka</a>
+              <a class="book-section-nav__link" href="#myli" data-section-id="myli">Gdzie się myli</a>
               <a class="book-section-nav__link" href="#werdykt" data-section-id="werdykt">Werdykt</a>
               <a class="book-section-nav__link" href="#faq" data-section-id="faq">FAQ</a>
             </div>
@@ -116,41 +123,129 @@
               <div class="book-copy">
                 <p>
                   <em>Samolubny gen</em> to książka, która zmieniła język opisu ewolucji: zamiast mówić
-                  wyłącznie o korzyściach organizmu czy gatunku, Dawkins pokazuje, jak logikę
-                  doboru można rozumieć na poziomie replikatorów — genów „dba” o własną
-                  trwałość w kolejnych pokoleniach.
+                  wyłącznie o korzyściach organizmu czy gatunku, Dawkins pokazuje, jak logikę doboru
+                  można rozumieć na poziomie replikatorów — genów „dba” o własną trwałość w kolejnych
+                  pokoleniach.
                 </p>
                 <p>
-                  To nie podręcznik akademicki, ale też nie lekka rozrywka: wymaga uwagi i gotowości
-                  do rozróżnienia metafory (np. „samolubny”) od mechanizmów, które autor opisuje
-                  precyzyjnie.
-                </p>
-              </div>
-            </section>
-
-            <section id="teza" class="book-article__section" data-book-section aria-labelledby="teza-heading">
-              <h2 id="teza-heading" class="book-article__heading">Główna teza</h2>
-              <div class="book-copy">
-                <p>
-                  Centralnym pomysłem jest traktowanie genu jako jednostki selekcji: zachowania i cechy
-                  często wyjaśnia się lepiej, gdy śledzi się, jak zwiększają one szanse przetrwania
-                  kopii informacji genetycznej — nawet wtedy, gdy nie „wyglądają” racjonalnie z
-                  perspektywy całego organizmu.
-                </p>
-                <p>
-                  Stąd kontrowersje i trwałe nieporozumienia: czytelnik musi pilnować, by nie
-                  mylić języka intencji z biologicznym mechanizmem.
+                  To nie podręcznik akademicki, ale też nie lekka rozrywka: wymaga uwagi i gotowości do
+                  rozróżnienia metafory (np. „samolubny”) od mechanizmów, które autor opisuje precyzyjnie.
+                  Ta analiza trzyma się kolejności czytania: najpierw skrót (TL;DR), potem rozwinięcie
+                  idei, krytyka zewnętrzna, typowe błędy czytania — i na końcu werdykt oraz pytania, które
+                  wracają w rozmowach z czytelnikami.
                 </p>
               </div>
             </section>
 
-            <section id="gen" class="book-article__section" data-book-section aria-labelledby="gen-heading">
-              <h2 id="gen-heading" class="book-article__heading">Dlaczego „gen”</h2>
+            <section id="tldr" class="book-article__section" data-book-section aria-labelledby="tldr-heading">
+              <h2 id="tldr-heading" class="book-article__heading">TL;DR</h2>
+              <div class="book-tldr">
+                <p class="book-tldr__label">W skrócie</p>
+                <ul class="book-tldr__list">
+                  <li>
+                    Dawkins proponuje patrzeć na dobór naturalny przez pryzmat genów jako replikatorów —
+                    informacji, które „przechodzą” przez pokolenia, zamiast tylko przez pryzmat całych
+                    organizmów.
+                  </li>
+                  <li>
+                    Zachowania i cechy często lepiej rozumie się wtedy, gdy śledzi się, jak zwiększają one
+                    szanse przetrwania kopii informacji genetycznej — nawet gdy z perspektywy całego ciała
+                    wyglądają kosztownie lub „nieracjonalnie”.
+                  </li>
+                  <li>
+                    Tytułowa metafora nie oznacza, że geny mają intencje ani że ludzie są „z natury
+                    egoistami” w sensie moralnym — chodzi o język modelu, nie o psychologię.
+                  </li>
+                  <li>
+                    Książka jest polem zrozumienia debat o ewolucji i redukcji nieporozumień; wymaga
+                    cierpliwości przy definicjach i ostrożności przy przenoszeniu wniosków na politykę czy
+                    etykę.
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            <section
+              id="kluczowe"
+              class="book-article__section"
+              data-book-section
+              aria-labelledby="kluczowe-heading"
+            >
+              <h2 id="kluczowe-heading" class="book-article__heading">Kluczowe idee</h2>
+              <ul class="book-key-list">
+                <li class="book-key-list__item">
+                  <h3>Główna teza</h3>
+                  <div class="book-copy">
+                    <p>
+                      Centralnym pomysłem jest traktowanie genu jako jednostki selekcji: zachowania i cechy
+                      często wyjaśnia się lepiej, gdy śledzi się, jak zwiększają one szanse przetrwania kopii
+                      informacji genetycznej — nawet wtedy, gdy nie „wyglądają” racjonalnie z perspektywy
+                      całego organizmu.
+                    </p>
+                    <p>
+                      Stąd kontrowersje i trwałe nieporozumienia: czytelnik musi pilnować, by nie mylić
+                      języka intencji z biologicznym mechanizmem.
+                    </p>
+                  </div>
+                </li>
+                <li class="book-key-list__item">
+                  <h3>Dlaczego „gen”</h3>
+                  <div class="book-copy">
+                    <p>
+                      Dawkins buduje most między intuicją a modelem: replikatory, mutacje, strategie
+                      ewolucyjne — to narzędzia, które pomagają uporządkować obserwacje z etologii i
+                      genetyki, bez skracania złożoności do sloganów.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </section>
+
+            <section id="krytyka" class="book-article__section" data-book-section aria-labelledby="krytyka-heading">
+              <h2 id="krytyka-heading" class="book-article__heading">Krytyka</h2>
               <div class="book-copy">
                 <p>
-                  Dawkins buduje most między intuicją a modelem: replikatory, mutacje, strategie
-                  ewolucyjne — to narzędzia, które pomagają uporządkować obserwacje z etologii i
-                  genetyki, bez skracania złożoności do sloganów.
+                  Od lat 70. XX wieku krytycy — biologowie i filozofowie nauki — zwracają uwagę na ryzyko
+                  <strong>genocentryzmu</strong>: czy redukcja do „logiki genu” nie pomija poziomów
+                  organizacji (komórki, rozwój, środowisko, epigenetyka), które dziś są lepiej opisane niż w
+                  pierwszym wydaniu książki.
+                </p>
+                <p>
+                  Inna linia krytyki dotyczy <strong>metafory</strong>: nawet gdy autor ostrzega przed
+                  personifikacją, sam tytuł i styl narracji sprzyjają uproszczeniom w odbiorze
+                  publicznym — stąd trwałe mieszanie modelu z moralnym „egoizmem”.
+                </p>
+                <p>
+                  Wreszcie: <em>Samolubny gen</em> nie jest monografią o najnowszej syntezie ewolucyjnej;
+                  czyta się ją najlepiej razem z późniejszą literaturą o wielopoziomowej selekcji, rozwoju i
+                  plastyczności fenotypu, żeby uniknąć wrażenia, że jedna metafora wyczerpuje całą biologię.
+                </p>
+              </div>
+            </section>
+
+            <section id="myli" class="book-article__section" data-book-section aria-labelledby="myli-heading">
+              <h2 id="myli-heading" class="book-article__heading">Gdzie Dawkins się myli — a gdzie myli się czytelnik</h2>
+              <div class="book-copy">
+                <p>
+                  Sam Dawkins nie „myli się” w sensie prostego błędu faktograficznego w opisie doboru; raczej
+                  chodzi o <strong>granice modelu</strong> i o to, co czytelnicy z niego wyprowadzają. Model
+                  genu jako replikatora bywa czytany jako przepowiedź o ludzkiej moralności — tymczasem to
+                  nie jest ani intencja książki, ani jej mocny punkt.
+                </p>
+                <p>
+                  Typowe nieporozumienie: utożsamienie „samolubnego” z <strong>psychologicznym egoizmem</strong>.
+                  W języku biologii ewolucyjnej chodzi o konsekwencje dla kopii genów, nie o etyczną ocenę
+                  zachowań.
+                </p>
+                <p>
+                  Drugie: przypisywanie genom <strong>celów i planów</strong>. Metafora ułatwia myślenie, ale
+                  w mechanice ewolucji nie ma „chcenia” — są częstotliwości, koszty i korzyści w danym
+                  środowisku.
+                </p>
+                <p>
+                  Trzecie: <strong>przenoszenie logiki ewolucji na politykę</strong> („naturalne jest dobre”).
+                  To błąd kategoryczny — normy społeczne i prawo nie wynikają z opisu selekcji, i Dawkins nie
+                  buduje z książki systemu moralnego, choć cytaty bywają z niego wyciągane w tej roli.
                 </p>
               </div>
             </section>
@@ -164,9 +259,15 @@
               <h2 id="werdykt-heading" class="book-article__heading">Werdykt</h2>
               <div class="book-copy">
                 <p>
-                  Pozycja obowiązkowa dla każdego, kto chce rozumieć, skąd w debacie publicznej o
-                  ewolucji biorą się nieporozumienia — i jak je rozplątać. Wymaga cierpliwości, ale
-                  nagradza spójnym obrazem.
+                  Pozycja obowiązkowa dla każdego, kto chce rozumieć, skąd w debacie publicznej o ewolucji
+                  biorą się nieporozumienia — i jak je rozplątać. Wymaga cierpliwości, ale nagradza spójnym
+                  obrazem.
+                </p>
+                <p>
+                  Na Booksferze traktujemy ten tekst jako <strong>klucz do języka</strong>, w jakim mówi się
+                  o replikacji i strategiach — nie jako ostatnie słowo całej dyscypliny. Po nim warto sięgać po
+                  nowsze opracowania, żeby domknąć obraz rozwoju, epigenetyki i selekcji wielopoziomowej —
+                  ale bez <em>Samolubnego genu</em> trudno zrozumieć, skąd wzięła się ta debata.
                 </p>
               </div>
             </section>
@@ -174,14 +275,14 @@
 
           <section id="faq" class="book-faq-section" data-book-section aria-labelledby="faq-heading" data-reveal>
             <p class="book-faq-section__label">Dla czytelnika</p>
-            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">Pytania</h2>
+            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">FAQ</h2>
             <div class="book-faq">
               <details class="book-faq__item">
                 <summary class="book-faq__summary">Czy to książka „o ludzkiej naturze”?</summary>
                 <div class="book-faq__answer">
                   <p>
-                    Raczej o logice ewolucji i poziomie abstrakcji genów. Wnioski społeczne czytelnik
-                    często domyśla się sam — autor nie jest od moralizowania.
+                    Raczej o logice ewolucji i poziomie abstrakcji genów. Wnioski społeczne czytelnik często
+                    domyśla się sam — autor nie jest od moralizowania.
                   </p>
                 </div>
               </details>
@@ -198,8 +299,17 @@
                 <summary class="book-faq__summary">Które wydanie wybrać?</summary>
                 <div class="book-faq__answer">
                   <p>
-                    Zwróć uwagę na przekład i przypisy — u Dawkinsa precyzja terminów ma znaczenie.
-                    Porównaj kilka recenzji wydawniczych przed zakupem.
+                    Zwróć uwagę na przekład i przypisy — u Dawkinsa precyzja terminów ma znaczenie. Porównaj
+                    kilka recenzji wydawniczych przed zakupem.
+                  </p>
+                </div>
+              </details>
+              <details class="book-faq__item">
+                <summary class="book-faq__summary">Czy „samolubny gen” znaczy, że jestem zły człowiek?</summary>
+                <div class="book-faq__answer">
+                  <p>
+                    Nie. To opis mechanizmu na poziomie replikacji informacji, a nie ocena charakteru. Etyka i
+                    psychologia żyją w innych językach niż ten model.
                   </p>
                 </div>
               </details>
@@ -214,7 +324,7 @@
         <p class="reader-end">
           <a href="index.html">← Strona główna</a>
           <span class="reader-end__sep" aria-hidden="true">·</span>
-          <a href="index.html#polka">Półka</a>
+          <a href="reader.html">Fragment</a>
         </p>
       </div>
     </footer>

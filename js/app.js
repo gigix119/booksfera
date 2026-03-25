@@ -50,7 +50,7 @@
         var btn = form.querySelector('button[type="submit"]');
         var original = btn ? btn.textContent : "";
         if (btn) {
-          btn.textContent = "Thank you";
+          btn.textContent = "Dziękujemy";
           btn.disabled = true;
           window.setTimeout(function () {
             btn.textContent = original;
