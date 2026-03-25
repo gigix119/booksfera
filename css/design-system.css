@@ -1,0 +1,174 @@
+/* =============================================================================
+   BOOKSFERA DESIGN SYSTEM — mobile-first
+   Baseline = phone; min-width queries add space, columns, and refinements only.
+   =============================================================================
+
+   TYPOGRAPHY
+   — Display / Cormorant Garamond: hero, titles, pull quotes
+   — Body / Source Serif 4: reading, descriptions
+   — UI / DM Sans: labels, buttons, nav, metadata (uppercase + wide tracking)
+
+   Scale (fluid via clamp; floors tuned for small screens):
+     xs      UI meta, captions
+     sm      secondary body, card detail
+     base    interface + default body (min ~17px)
+     lg      lead paragraphs, reader body
+     xl–3xl  section titles → page titles
+     hero    homepage hero only
+
+   COLOR — premium minimal (no accent rainbow)
+     Ink on warm off-white; navy as sole brand depth; borders = transparent navy
+
+   SPACING — 4px base (space-1 = 0.25rem); use consistent vertical rhythm between sections
+
+   RADIUS — sm UI chips, md buttons/inputs, lg cards, xl hero panels
+
+   SHADOWS — optional; default is hairline border; float only for elevated cards
+
+   LAYOUT — see layout.css: .container, .layout-grid, .stack
+
+   ============================================================================= */
+
+:root {
+  /* —— Color: semantic map (use these in components) —— */
+  --color-bg-page: #fafafa;
+  --color-bg-elevated: #ffffff;
+  --color-bg-inverse: #0f1729;
+
+  --color-ink-primary: #0a0a0a;
+  --color-ink-secondary: #4a4a52;
+  --color-ink-tertiary: #6b6b75;
+
+  --color-brand: #0f1729;
+  --color-brand-muted: #1e2a42;
+
+  --color-on-inverse: #fafafa;
+  --color-on-inverse-muted: rgba(250, 250, 250, 0.72);
+
+  --color-line-subtle: rgba(15, 23, 41, 0.06);
+  --color-line-default: rgba(15, 23, 41, 0.08);
+  --color-line-strong: rgba(15, 23, 41, 0.14);
+
+  /* Legacy aliases (same values — keep for existing rules) */
+  --color-bg: var(--color-bg-page);
+  --color-surface: var(--color-bg-elevated);
+  --color-ink: var(--color-ink-primary);
+  --color-ink-muted: var(--color-ink-secondary);
+  --color-ink-subtle: var(--color-ink-tertiary);
+  --color-navy: var(--color-brand);
+  --color-navy-soft: var(--color-brand-muted);
+  --color-border: var(--color-line-default);
+  --color-border-strong: var(--color-line-strong);
+
+  /* —— Typography: families —— */
+  --font-display: "Cormorant Garamond", "Georgia", serif;
+  --font-body: "Source Serif 4", "Georgia", serif;
+  --font-ui: "DM Sans", system-ui, sans-serif;
+
+  /* —— Typography: scale —— */
+  --text-xs: clamp(0.75rem, 0.7rem + 0.2vw, 0.8125rem);
+  --text-sm: clamp(0.8125rem, 0.78rem + 0.15vw, 0.875rem);
+  --text-base: clamp(1.0625rem, 1rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1rem + 0.4vw, 1.25rem);
+  --text-xl: clamp(1.375rem, 1.2rem + 0.6vw, 1.625rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1vw, 2.25rem);
+  --text-3xl: clamp(2.25rem, 1.6rem + 2vw, 3.25rem);
+  --text-hero: clamp(2.125rem, 1.5rem + 2.5vw, 4rem);
+
+  /* Semantic aliases */
+  --type-eyebrow: var(--text-xs);
+  --type-ui: var(--text-xs);
+  --type-body: var(--text-base);
+  --type-body-large: var(--text-lg);
+  --type-lede: var(--text-lg);
+  --type-section: var(--text-2xl);
+  --type-title: var(--text-3xl);
+  --type-display: var(--text-hero);
+
+  --leading-tight: 1.15;
+  --leading-snug: 1.35;
+  --leading-relaxed: 1.65;
+  --leading-reading: 1.75;
+
+  --tracking-tight: -0.02em;
+  --tracking-wide: 0.06em;
+  --tracking-ui: 0.06em;
+
+  /* —— Spacing: 4px grid (multiply space-N by 4px at space-1 = 0.25rem) —— */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-7: 1.75rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-18: 4.5rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Section vertical rhythm */
+  --section-pad-y: var(--space-14);
+  --stack-gap-dense: var(--space-4);
+  --stack-gap: var(--space-6);
+  --stack-gap-loose: var(--space-10);
+
+  /* —— Touch —— */
+  --touch-min: 2.75rem;
+  --touch-comfort: 3rem;
+  --tap-min: var(--touch-min);
+
+  /* —— Radius —— */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 999px;
+
+  /* —— Shadows (minimal; prefer borders) —— */
+  --shadow-none: none;
+  --shadow-hairline: 0 0 0 1px var(--color-line-default);
+  --shadow-card: 0 1px 2px rgba(15, 23, 41, 0.04), 0 4px 24px rgba(15, 23, 41, 0.06);
+  --shadow-float: 0 8px 40px rgba(15, 23, 41, 0.08);
+
+  /* —— Layout widths —— */
+  --max-content: 72rem;
+  --max-reading: 40rem;
+  --max-book-meta: 42rem;
+
+  /* —— Grid (used by .layout-grid; phones = 4 cols, md+ = 12) —— */
+  --grid-columns: 4;
+  --grid-gap: var(--space-4);
+  --grid-gap-lg: var(--space-6);
+
+  /* —— Header / page gutter —— */
+  --header-h: 3.5rem;
+  --page-pad-inline: max(var(--space-5), env(safe-area-inset-left, 0px));
+  --page-pad-inline-end: max(var(--space-5), env(safe-area-inset-right, 0px));
+
+  /* —— Motion —— */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration-fast: 180ms;
+  --duration-mid: 320ms;
+}
+
+/* Breakpoints (document only — use literals in @media):
+   480  sm   wider phones / two-up cards
+   768  md   tablet; nav + section depth
+   900  —    homepage hero split
+   1024 lg   three-up shelf */
+
+@media (min-width: 768px) {
+  :root {
+    --header-h: 4rem;
+    --section-pad-y: var(--space-20);
+    --page-pad-inline: max(var(--space-6), env(safe-area-inset-left, 0px));
+    --page-pad-inline-end: max(var(--space-6), env(safe-area-inset-right, 0px));
+    --grid-columns: 12;
+    --grid-gap: var(--space-6);
+  }
+}

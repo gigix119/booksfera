@@ -1,0 +1,73 @@
+/* Booksfera — layout primitives (mobile-first grid + stacks) */
+
+.container {
+  width: 100%;
+  max-width: var(--max-content);
+  margin-inline: auto;
+  padding-inline: var(--page-pad-inline) var(--page-pad-inline-end);
+}
+
+.container--narrow {
+  max-width: var(--max-reading);
+  min-width: 0;
+}
+
+.container--book {
+  max-width: var(--max-book-meta);
+}
+
+/* Responsive column grid: 4 cols phone → 12 cols md+ */
+.layout-grid {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+  gap: var(--grid-gap);
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .layout-grid {
+    gap: var(--grid-gap-lg);
+  }
+}
+
+/* Common spans (12-col system on md+) */
+@media (min-width: 768px) {
+  .span-md-6 {
+    grid-column: span 6;
+  }
+
+  .span-md-8 {
+    grid-column: span 8;
+  }
+
+  .span-md-12 {
+    grid-column: span 12;
+  }
+}
+
+/* Vertical stacks — editorial rhythm */
+.stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--stack-gap);
+}
+
+.stack--dense {
+  gap: var(--stack-gap-dense);
+}
+
+.stack--loose {
+  gap: var(--stack-gap-loose);
+}
+
+/* Hairline divider — not a “blog rule”; product-quiet separator */
+.rule {
+  height: 1px;
+  background: var(--color-line-default);
+  border: 0;
+  margin: var(--space-10) 0;
+}
+
+.rule--tight {
+  margin: var(--space-6) 0;
+}
