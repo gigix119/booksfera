@@ -72,6 +72,22 @@ copyDir(path.join(root, "css"), path.join(dist, "css"));
 copyDir(path.join(root, "js"), path.join(dist, "js"));
 copyDir(path.join(root, "public"), path.join(dist));
 
+// Fail fast if production assets are missing (Cloudflare builds from dist/ only).
+const requiredAssets = [
+  "favicon.svg",
+  "og-default.svg",
+  "samolubnygen1.jpg",
+  "samolubnygen2.jpg",
+  "samolubnygen3.jpg",
+];
+for (const name of requiredAssets) {
+  const p = path.join(dist, name);
+  if (!fs.existsSync(p)) {
+    console.error(`Build failed: required asset missing in dist/: ${name}`);
+    process.exit(1);
+  }
+}
+
 const robots = [
   "User-agent: *",
   "Allow: /",
