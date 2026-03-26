@@ -1158,6 +1158,65 @@
   margin-bottom: 0;
 }
 
+.page-about {
+  --page-pad-inline: 1.25rem;
+  --page-pad-inline-end: 1.25rem;
+}
+
+.page-about [data-reveal] {
+  will-change: transform, opacity;
+}
+
+/* Subtelne wejście: bardzo lekki fade i ruch w górę (bez efektu „UI”) */
+html.bf-reveal .page-about [data-reveal]:not(.is-visible) {
+  opacity: 0;
+  transform: translateY(0.35rem);
+}
+
+html.bf-reveal .page-about [data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.22s ease-out, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.bf-reveal .page-about [data-reveal]:not(.is-visible) {
+    transform: none;
+  }
+
+  html.bf-reveal .page-about [data-reveal].is-visible {
+    transition: none;
+  }
+}
+
+.about-bottom-cta {
+  margin-top: clamp(var(--space-10), 10vw, var(--space-16));
+  padding-top: var(--space-8);
+}
+
+.about-bottom-link {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-ink-tertiary);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch-comfort);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-sm);
+  transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .about-bottom-link:hover {
+    color: var(--color-brand);
+    background: rgba(15, 23, 41, 0.035);
+  }
+}
+
 .site-footer--about .site-footer__links {
   justify-content: center;
   gap: var(--space-4) var(--space-6);
