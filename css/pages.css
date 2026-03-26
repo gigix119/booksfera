@@ -1116,51 +1116,99 @@
 
 /* ——— O Booksferze — strona esejowa, spokojny rytm czytania ——— */
 .page-about {
-  background: #f4f1eb;
+  --page-pad-inline: 1.25rem;
+  --page-pad-inline-end: 1.25rem;
+  background:
+    radial-gradient(ellipse 140% 90% at 50% -20%, rgba(255, 255, 255, 0.42), transparent 58%),
+    linear-gradient(180deg, #f7f4ee 0%, #f3efe8 52%, #f0ece5 100%);
 }
 
 .page-about #main {
   padding-bottom: max(var(--space-8), env(safe-area-inset-bottom, 0px));
 }
 
+.page-about .site-header {
+  background: rgba(247, 244, 238, 0.86);
+  border-bottom: 1px solid rgba(15, 23, 41, 0.065);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.page-about .site-header--gateway .site-header__inner {
+  min-height: calc(var(--header-h) + var(--space-1));
+  gap: var(--space-4);
+  padding-block: var(--space-1);
+}
+
+.page-about .nav--gateway {
+  gap: var(--space-4);
+}
+
+.page-about .nav--gateway .nav__link {
+  font-size: var(--text-sm);
+  letter-spacing: 0.02em;
+  padding-inline: var(--space-3);
+  min-height: var(--touch-min);
+}
+
+.page-about .nav__link[aria-current="page"] {
+  color: var(--color-brand);
+}
+
 .about-main {
-  padding-block: clamp(3.5rem, 14vw, 5.5rem) clamp(4.5rem, 16vw, 6.5rem);
+  padding-block: clamp(4.5rem, 18vw, 6.5rem) clamp(5rem, 18vw, 7rem);
+  position: relative;
+}
+
+/* Delikatna głębia pod kolumną tekstu */
+.about-main::before {
+  content: "";
+  position: absolute;
+  inset: clamp(2.5rem, 8vw, 4rem) 0 auto;
+  height: clamp(20rem, 55vw, 28rem);
+  pointer-events: none;
+  background: radial-gradient(ellipse 44% 58% at 50% 28%, rgba(255, 255, 255, 0.56), transparent 74%);
+  opacity: 0.65;
 }
 
 .about-essay {
-  max-width: 40rem;
+  max-width: 39rem;
+  position: relative;
+  z-index: 1;
 }
 
 .about-essay__title {
-  margin: 0 0 clamp(var(--space-9), 8vw, var(--space-11));
+  margin: 0 0 clamp(var(--space-10), 9vw, var(--space-12));
   font-family: var(--font-display);
-  font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);
+  font-size: clamp(2.375rem, 1.92rem + 1.25vw, 3.125rem);
   font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: rgba(12, 15, 20, 0.94);
+  line-height: 1.06;
+  letter-spacing: -0.032em;
+  color: rgba(12, 15, 20, 0.9);
   text-wrap: balance;
 }
 
 .about-essay__prose {
   font-family: var(--font-body);
-  font-size: clamp(1.125rem, 1.06rem + 0.2vw, 1.25rem);
-  line-height: 1.9;
-  color: rgba(12, 15, 20, 0.76);
-  max-width: 40rem;
+  font-size: clamp(1.125rem, 1.055rem + 0.2vw, 1.2rem);
+  line-height: 1.78;
+  letter-spacing: 0.003em;
+  color: rgba(12, 15, 20, 0.74);
+  max-width: 35ch;
 }
 
 .about-essay__prose p {
-  margin: 0 0 clamp(var(--space-8), 7vw, var(--space-10));
+  margin: 0 0 clamp(var(--space-8), 8vw, var(--space-12));
 }
 
 .about-essay__prose p:last-child {
   margin-bottom: 0;
 }
 
-.page-about {
-  --page-pad-inline: 1.25rem;
-  --page-pad-inline-end: 1.25rem;
+.about-essay__prose p:first-of-type {
+  font-size: clamp(1.16rem, 1.08rem + 0.22vw, 1.27rem);
+  line-height: 1.74;
+  color: rgba(12, 15, 20, 0.79);
 }
 
 .page-about [data-reveal] {
@@ -1170,13 +1218,50 @@
 /* Subtelne wejście: bardzo lekki fade i ruch w górę (bez efektu „UI”) */
 html.bf-reveal .page-about [data-reveal]:not(.is-visible) {
   opacity: 0;
-  transform: translateY(0.35rem);
+  transform: translateY(0.5rem);
 }
 
 html.bf-reveal .page-about [data-reveal].is-visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.22s ease-out, transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  transition: opacity 0.68s ease-out, transform 0.72s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Pierwsze wejście: tytuł + sekwencja akapitów */
+html.bf-reveal .page-about .about-essay__title.is-visible {
+  transition-delay: 0.12s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal].is-visible {
+  transition-duration: 0.66s, 0.72s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(2).is-visible {
+  transition-delay: 0.14s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(3).is-visible {
+  transition-delay: 0.2s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(4).is-visible {
+  transition-delay: 0.26s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(5).is-visible {
+  transition-delay: 0.32s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(6).is-visible {
+  transition-delay: 0.38s;
+}
+
+html.bf-reveal .page-about .about-essay__prose p[data-reveal]:nth-of-type(7).is-visible {
+  transition-delay: 0.44s;
+}
+
+html.bf-reveal .page-about .about-bottom-cta.is-visible {
+  transition-delay: 0.18s;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1190,31 +1275,41 @@ html.bf-reveal .page-about [data-reveal].is-visible {
 }
 
 .about-bottom-cta {
-  margin-top: clamp(var(--space-10), 10vw, var(--space-16));
-  padding-top: var(--space-8);
+  margin-top: clamp(var(--space-12), 12vw, var(--space-18));
+  padding-top: var(--space-6);
 }
 
 .about-bottom-link {
   font-family: var(--font-ui);
   font-size: var(--text-sm);
   font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--color-ink-tertiary);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgba(12, 15, 20, 0.62);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   min-height: var(--touch-comfort);
-  padding: var(--space-3) var(--space-4);
+  padding: var(--space-2) var(--space-3);
   border-radius: var(--radius-sm);
-  transition: color var(--duration-fast) var(--ease-out), background var(--duration-fast) var(--ease-out);
+  transition: color var(--duration-fast) var(--ease-out), transform var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
   .about-bottom-link:hover {
     color: var(--color-brand);
-    background: rgba(15, 23, 41, 0.035);
+    transform: translateY(-1px);
   }
+}
+
+.about-bottom-link:active {
+  transform: scale(0.98);
+}
+
+.about-bottom-link:focus-visible {
+  outline: 2px solid rgba(15, 23, 41, 0.22);
+  outline-offset: 3px;
 }
 
 .site-footer--about .site-footer__links {
