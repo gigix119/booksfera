@@ -1,6 +1,6 @@
 /**
- * Production build: copies static assets into dist/ and injects SEO URLs.
- * Cloudflare Pages sets CF_PAGES_URL during build; override with SITE_URL if needed.
+ * Build produkcyjny: kopiuje zasoby statyczne do dist/ i wstrzykuje adresy SEO.
+ * Na Cloudflare Pages ustawiane jest CF_PAGES_URL; można nadpisać SITE_URL.
  */
 import fs from "fs";
 import path from "path";
@@ -17,6 +17,8 @@ const siteUrl = (process.env.CF_PAGES_URL || process.env.SITE_URL || "")
 const pages = {
   "index.html": { path: "/" },
   "samolubny-gen.html": { path: "/samolubny-gen.html" },
+  "regulamin.html": { path: "/regulamin.html" },
+  "prywatnosc.html": { path: "/prywatnosc.html" },
   "book.html": { path: "/book.html" },
   "reader.html": { path: "/reader.html" },
 };
@@ -81,7 +83,14 @@ const robots = [
 fs.writeFileSync(path.join(dist, "robots.txt"), robots + "\n", "utf8");
 
 if (siteUrl) {
-  const locs = ["/", "/samolubny-gen.html", "/book.html", "/reader.html"];
+  const locs = [
+    "/",
+    "/samolubny-gen.html",
+    "/regulamin.html",
+    "/prywatnosc.html",
+    "/book.html",
+    "/reader.html",
+  ];
   const body = locs
     .map((p) => {
       const loc = absoluteUrl(p);

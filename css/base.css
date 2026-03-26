@@ -12,6 +12,12 @@ html {
   touch-action: manipulation; /* snappier taps; zoom still works via pinch */
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
 body {
   margin: 0;
   /* Horizontal insets live on `.container` (page-pad + safe area) to avoid double gutters */
@@ -22,6 +28,7 @@ body {
   color: var(--color-ink);
   background-color: var(--color-bg);
   -webkit-font-smoothing: antialiased;
+  overscroll-behavior-y: contain;
 }
 
 img {
@@ -50,7 +57,9 @@ a {
 .logo,
 .nav__link,
 .home-feature-card__link,
-.book-return-bar__back {
+.book-return-bar__back,
+.site-footer__footlink,
+.shelf-cat__link {
   text-decoration: none;
 }
 
@@ -63,17 +72,26 @@ a {
   text-decoration: none;
 }
 
-/* Jawne linki w treści (gdy się pojawią) */
+/* Linki w treści: na dotyku bez linii; podkreślenie tylko przy myszy */
 .book-copy a,
 .home-about__prose a {
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
+  text-decoration: none;
+  color: var(--color-brand-muted);
 }
 
-.book-copy a:hover,
-.home-about__prose a:hover {
-  text-decoration-thickness: 2px;
+@media (hover: hover) and (pointer: fine) {
+  .book-copy a,
+  .home-about__prose a {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.22em;
+    text-decoration-skip-ink: auto;
+  }
+
+  .book-copy a:hover,
+  .home-about__prose a:hover {
+    text-decoration-thickness: 2px;
+  }
 }
 
 a:focus-visible,

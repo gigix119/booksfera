@@ -18,7 +18,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-3);
+  gap: var(--space-4);
   flex-wrap: nowrap;
 }
 
@@ -39,8 +39,9 @@
   display: inline-flex;
   align-items: center;
   min-height: var(--touch-min);
-  padding-inline: var(--space-1);
-  margin-inline: calc(var(--space-1) * -1);
+  padding-inline: var(--space-2);
+  margin-inline: calc(var(--space-2) * -1);
+  flex-shrink: 0;
 }
 
 .logo:hover {
@@ -91,9 +92,9 @@
   font-weight: 600;
 }
 
-/* Dwie pozycje — czytelny odstęp na małych ekranach */
+/* Dwie pozycje — duży odstęp między linkami (nie ściskać) */
 .nav--gateway {
-  gap: var(--space-5);
+  gap: var(--space-6);
   flex-shrink: 0;
   margin-left: auto;
 }
@@ -102,27 +103,28 @@
   font-size: var(--text-base);
   font-weight: 500;
   letter-spacing: 0.01em;
-  padding-inline: var(--space-3);
+  padding-inline: var(--space-4);
   min-height: var(--touch-comfort);
 }
 
 .site-header--gateway .site-header__inner {
-  min-height: calc(var(--header-h) + var(--space-1));
-  gap: var(--space-4);
+  min-height: calc(var(--header-h) + var(--space-2));
+  gap: var(--space-5);
   align-items: center;
+  padding-block: var(--space-1);
 }
 
 @media (max-width: 380px) {
   .site-header--gateway .site-header__inner {
     flex-wrap: wrap;
-    row-gap: var(--space-3);
+    row-gap: var(--space-4);
   }
 
   .nav--gateway {
     width: 100%;
     margin-left: 0;
     justify-content: flex-start;
-    gap: var(--space-6);
+    gap: var(--space-7);
   }
 }
 
@@ -133,6 +135,15 @@
   letter-spacing: 0.03em;
   font-size: var(--text-base);
   font-weight: 600;
+}
+
+@media (max-width: 767px) {
+  .btn {
+    min-height: 3.5rem;
+    padding: var(--space-4) var(--space-7);
+    font-size: var(--text-base);
+    letter-spacing: 0.04em;
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {

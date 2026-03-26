@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
-      content="Booksfera — analiza Samolubnego genu Richarda Dawkinsa. Czytaj od razu."
+      content="Booksfera — czytanie z analizą. Samolubny gen Richarda Dawkinsa."
     />
     <title>Booksfera</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -35,27 +35,27 @@
     </header>
 
     <main id="main">
-      <section class="home-gateway" aria-labelledby="gateway-title">
+      <section class="home-hero" aria-labelledby="hero-title">
         <div class="container container--narrow">
-          <h1 id="gateway-title" class="home-gateway__title">Jedna książka, jedna analiza</h1>
-          <p class="home-gateway__text">
-            Poniżej jest okładka i skrót. Cała treść — wstęp, TL;DR, krytyka, werdykt, FAQ — jest na
-            osobnej stronie, pod jednym adresem.
+          <h1 id="hero-title" class="home-hero__title">Czytaj jedną rzecz porządnie</h1>
+          <p class="home-hero__lead">
+            Zamiast ściany okładek — jedna wybrana pozycja i długa analiza. Zacznij od Dawkinsa albo przejdź
+            od razu do artykułu.
           </p>
-          <p class="home-gateway__action">
+          <p class="home-hero__cta">
             <a class="btn btn--primary btn--gateway" href="samolubny-gen.html">Czytaj analizę</a>
           </p>
         </div>
       </section>
 
-      <section id="polka" class="home-shelf section--home" aria-labelledby="shelf-title">
+      <section class="home-featured" aria-labelledby="feat-title">
         <div class="container">
-          <h2 id="shelf-title" class="sr-only">Półka</h2>
+          <h2 id="feat-title" class="sr-only">Wybrana pozycja</h2>
           <article class="home-feature-card" data-reveal>
             <a class="home-feature-card__link" href="samolubny-gen.html">
               <div class="home-feature-card__cover">
                 <img
-                  src="SamolubnyGen.jpg"
+                  src="samolubnygen1.jpg"
                   alt="Okładka: Samolubny gen"
                   width="640"
                   height="960"
@@ -69,8 +69,8 @@
                 <h3 class="home-feature-card__name">Samolubny gen</h3>
                 <p class="home-feature-card__author">Richard Dawkins</p>
                 <p class="home-feature-card__teaser">
-                  Dobór naturalny z perspektywy genu — książka, która ułożyła język współczesnej biologii
-                  ewolucyjnej. W analizie m.in. teza, krytyka modelu i typowe nieporozumienia czytelników.
+                  Dobór naturalny z perspektywy genu — tekst, który ułożył język współczesnej biologii
+                  ewolucyjnej. Pełna analiza na osobnej stronie.
                 </p>
                 <span class="home-feature-card__cta btn btn--primary">Czytaj analizę</span>
               </div>
@@ -79,20 +79,49 @@
         </div>
       </section>
 
+      <section id="polka" class="home-shelf section--home" aria-labelledby="polka-title">
+        <div class="container">
+          <h2 id="polka-title" class="home-shelf__title">Półka</h2>
+          <p class="home-shelf__intro">Pozycje poukładane według dziedziny. Reszta kategorii z czasem się zapełni.</p>
+          <div class="shelf-grid" role="list">
+            <div class="shelf-cat" role="listitem">
+              <h3 class="shelf-cat__name">Nauka</h3>
+              <ul class="shelf-cat__list">
+                <li>
+                  <a class="shelf-cat__link" href="samolubny-gen.html">Samolubny gen — Richard Dawkins</a>
+                </li>
+              </ul>
+            </div>
+            <div class="shelf-cat" role="listitem">
+              <h3 class="shelf-cat__name">Psychologia</h3>
+              <p class="shelf-cat__soon">W przygotowaniu</p>
+            </div>
+            <div class="shelf-cat" role="listitem">
+              <h3 class="shelf-cat__name">Systemy</h3>
+              <p class="shelf-cat__soon">W przygotowaniu</p>
+            </div>
+            <div class="shelf-cat" role="listitem">
+              <h3 class="shelf-cat__name">Biznes</h3>
+              <p class="shelf-cat__soon">W przygotowaniu</p>
+            </div>
+            <div class="shelf-cat" role="listitem">
+              <h3 class="shelf-cat__name">Społeczeństwo</h3>
+              <p class="shelf-cat__soon">W przygotowaniu</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section id="o-booksferze" class="home-about section--home section--muted" aria-labelledby="about-title">
         <div class="container container--narrow">
           <h2 id="about-title" class="home-about__title">O Booksferze</h2>
           <div class="home-about__prose" data-reveal>
             <p>
-              To statyczna strona pod długie czytanie: bez logowania, bez ściany pozycji. Jest jedna
-              ścieżka — od strony głównej do artykułu.
+              To statyczna witryna: HTML i CSS, bez bazy. Jest jedna główna ścieżka czytania — analiza
+              książkowa pod telefon i monitor.
             </p>
             <p>
-              Tekst jest składany pod mały ekran: szerokość kolumny, rozmiar czcionki i odstępy między
-              sekcjami liczą się tak samo jak na papierze w serii wydawniczej.
-            </p>
-            <p>
-              Jeśli trafiłeś tu z wyszukiwarki, przejdź od razu do analizy — to właściwa treść.
+              Nie zbieramy kont użytkowników; treść ma być spokojna do czytania w jednym miejscu.
             </p>
           </div>
         </div>
@@ -101,7 +130,12 @@
 
     <footer class="site-footer site-footer--gateway">
       <div class="container">
-        <p class="site-footer__minimal">© Booksfera · <a href="samolubny-gen.html">Samolubny gen — analiza</a></p>
+        <div class="site-footer__links">
+          <span>© Booksfera</span>
+          <a class="site-footer__footlink" href="mailto:kontakt@booksfera.com">Kontakt</a>
+          <a class="site-footer__footlink" href="regulamin.html">Regulamin</a>
+          <a class="site-footer__footlink" href="prywatnosc.html">Prywatność</a>
+        </div>
       </div>
     </footer>
 

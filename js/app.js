@@ -1,5 +1,5 @@
 /**
- * Booksfera — subtle scroll reveals + newsletter stub
+ * Booksfera — ujawnianie przy przewijaniu + opcjonalny formularz
  */
 (function () {
   "use strict";
