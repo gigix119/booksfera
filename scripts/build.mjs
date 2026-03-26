@@ -16,6 +16,7 @@ const siteUrl = (process.env.CF_PAGES_URL || process.env.SITE_URL || "")
 
 const pages = {
   "index.html": { path: "/" },
+  "polka.html": { path: "/polka.html" },
   "samolubny-gen.html": { path: "/samolubny-gen.html" },
   "regulamin.html": { path: "/regulamin.html" },
   "prywatnosc.html": { path: "/prywatnosc.html" },
@@ -85,6 +86,7 @@ fs.writeFileSync(path.join(dist, "robots.txt"), robots + "\n", "utf8");
 if (siteUrl) {
   const locs = [
     "/",
+    "/polka.html",
     "/samolubny-gen.html",
     "/regulamin.html",
     "/prywatnosc.html",

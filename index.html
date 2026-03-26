@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#fafafa" />
     <meta
       name="description"
-      content="Booksfera — czytanie z analizą. Samolubny gen Richarda Dawkinsa."
+      content="Booksfera — długie analizy jednej książki naraz. Spokojne czytanie od wstępu do werdyktu."
     />
     <title>Booksfera</title>
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
@@ -21,93 +21,31 @@
     />
     <link rel="stylesheet" href="css/main.css" />
   </head>
-  <body class="page-home page-home--gateway">
+  <body class="page-home page-home--landing">
     <a class="skip-link" href="#main">Przejdź do treści</a>
 
     <header class="site-header site-header--gateway">
       <div class="container site-header__inner">
         <a class="logo" href="index.html">Booksfera</a>
         <nav class="nav nav--gateway" aria-label="Nawigacja">
-          <a class="nav__link" href="#polka">Półka</a>
+          <a class="nav__link" href="polka.html">Półka</a>
           <a class="nav__link" href="#o-booksferze">O Booksferze</a>
         </nav>
       </div>
     </header>
 
     <main id="main">
-      <section class="home-hero" aria-labelledby="hero-title">
-        <div class="container container--narrow">
-          <h1 id="hero-title" class="home-hero__title">Czytaj jedną rzecz porządnie</h1>
+      <section class="home-hero home-hero--landing" aria-labelledby="hero-title">
+        <div class="home-hero__glow" aria-hidden="true"></div>
+        <div class="container container--narrow home-hero__content">
+          <p class="home-hero__eyebrow">Książki · analizy · bez pośpiechu</p>
+          <h1 id="hero-title" class="home-hero__title">Jedna rzecz naraz. Na spokojnie.</h1>
           <p class="home-hero__lead">
-            Zamiast ściany okładek — jedna wybrana pozycja i długa analiza. Zacznij od Dawkinsa albo przejdź
-            od razu do artykułu.
+            Jedna pozycja w danym momencie. Jeden tekst: od wstępu do werdyktu, bez skracania do listy punktów.
           </p>
-          <p class="home-hero__cta">
-            <a class="btn btn--primary btn--gateway" href="samolubny-gen.html">Czytaj analizę</a>
-          </p>
-        </div>
-      </section>
-
-      <section class="home-featured" aria-labelledby="feat-title">
-        <div class="container">
-          <h2 id="feat-title" class="sr-only">Wybrana pozycja</h2>
-          <article class="home-feature-card" data-reveal>
-            <a class="home-feature-card__link" href="samolubny-gen.html">
-              <div class="home-feature-card__cover">
-                <img
-                  src="samolubnygen1.jpg"
-                  alt="Okładka: Samolubny gen"
-                  width="640"
-                  height="960"
-                  sizes="(max-width: 639px) min(92vw, 22rem), 13rem"
-                  loading="eager"
-                  decoding="async"
-                  fetchpriority="high"
-                />
-              </div>
-              <div class="home-feature-card__body">
-                <h3 class="home-feature-card__name">Samolubny gen</h3>
-                <p class="home-feature-card__author">Richard Dawkins</p>
-                <p class="home-feature-card__teaser">
-                  Dobór naturalny z perspektywy genu — tekst, który ułożył język współczesnej biologii
-                  ewolucyjnej. Pełna analiza na osobnej stronie.
-                </p>
-                <span class="home-feature-card__cta btn btn--primary">Czytaj analizę</span>
-              </div>
-            </a>
-          </article>
-        </div>
-      </section>
-
-      <section id="polka" class="home-shelf section--home" aria-labelledby="polka-title">
-        <div class="container">
-          <h2 id="polka-title" class="home-shelf__title">Półka</h2>
-          <p class="home-shelf__intro">Pozycje poukładane według dziedziny. Reszta kategorii z czasem się zapełni.</p>
-          <div class="shelf-grid" role="list">
-            <div class="shelf-cat" role="listitem">
-              <h3 class="shelf-cat__name">Nauka</h3>
-              <ul class="shelf-cat__list">
-                <li>
-                  <a class="shelf-cat__link" href="samolubny-gen.html">Samolubny gen — Richard Dawkins</a>
-                </li>
-              </ul>
-            </div>
-            <div class="shelf-cat" role="listitem">
-              <h3 class="shelf-cat__name">Psychologia</h3>
-              <p class="shelf-cat__soon">W przygotowaniu</p>
-            </div>
-            <div class="shelf-cat" role="listitem">
-              <h3 class="shelf-cat__name">Systemy</h3>
-              <p class="shelf-cat__soon">W przygotowaniu</p>
-            </div>
-            <div class="shelf-cat" role="listitem">
-              <h3 class="shelf-cat__name">Biznes</h3>
-              <p class="shelf-cat__soon">W przygotowaniu</p>
-            </div>
-            <div class="shelf-cat" role="listitem">
-              <h3 class="shelf-cat__name">Społeczeństwo</h3>
-              <p class="shelf-cat__soon">W przygotowaniu</p>
-            </div>
+          <div class="home-hero__actions">
+            <a class="btn btn--primary btn--gateway btn--hero-primary" href="polka.html">Otwórz Półkę</a>
+            <a class="btn btn--ghost btn--gateway btn--hero-secondary" href="#o-booksferze">O Booksferze</a>
           </div>
         </div>
       </section>
@@ -117,12 +55,10 @@
           <h2 id="about-title" class="home-about__title">O Booksferze</h2>
           <div class="home-about__prose" data-reveal>
             <p>
-              To statyczna witryna: HTML i CSS, bez bazy. Jest jedna główna ścieżka czytania — analiza
-              książkowa pod telefon i monitor.
+              Jedna książka naraz: wstęp, rozwinięcie, krytyka, werdykt. Bez logowania i bez rozpraszaczy przy
+              tekście.
             </p>
-            <p>
-              Nie zbieramy kont użytkowników; treść ma być spokojna do czytania w jednym miejscu.
-            </p>
+            <p>Kategorie i tytuły leżą na Półce.</p>
           </div>
         </div>
       </section>

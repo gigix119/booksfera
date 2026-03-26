@@ -26,7 +26,7 @@
 
     <div class="book-return-bar" role="navigation" aria-label="Powrót">
       <div class="container book-return-bar__inner book-return-bar__inner--solo">
-        <a class="book-return-bar__back" href="index.html">← Wróć</a>
+        <a class="book-return-bar__back" href="polka.html">← Wróć do Półki</a>
       </div>
     </div>
 
@@ -37,8 +37,9 @@
 
         <header class="book-hero container" data-reveal>
           <div class="book-cover-wrap">
-            <div class="book-cover book-cover--has-img" role="img" aria-label="Okładka: Samolubny gen">
+            <div class="book-cover book-cover--has-img">
               <img
+                class="book-cover__img"
                 src="samolubnygen1.jpg"
                 alt="Okładka książki Samolubny gen"
                 width="640"
@@ -85,10 +86,10 @@
               </div>
             </section>
 
-            <figure class="book-article__figure">
+            <figure class="book-article__figure book-article__figure--inline">
               <img
                 src="samolubnygen2.jpg"
-                alt=""
+                alt="Ilustracja w treści analizy Samolubnego genu"
                 width="1200"
                 height="800"
                 sizes="(max-width: 680px) 100vw, 42.5rem"
@@ -106,12 +107,12 @@
               <h2 id="o-czym-heading" class="book-article__heading">O czym jest książka</h2>
               <div class="book-copy">
                 <p>
-                  To nie podręcznik akademicki, ale też nie lekka rozrywka: wymaga uwagi i gotowości do
-                  rozróżnienia metafory (np. „samolubny”) od mechanizmów, które autor opisuje precyzyjnie.
+                  To nie podręcznik akademicki, ale też nie lekka rozrywka: trzeba pilnować granicy między
+                  metafórą (np. „samolubny”) a tym, co Dawkins mierzy naprawdę.
                 </p>
                 <p>
-                  Ta analiza prowadzi kolejno: od rozwinięcia idei, przez krytykę zewnętrzną i typowe błędy
-                  czytania, do werdyktu oraz pytań, które wracają w rozmowach z czytelnikami.
+                  Dalej: rozwinięcie idei, potem krytyka i typowe nieporozumienia, na końcu werdykt i krótkie odpowiedzi
+                  na pytania, które wracają w rozmowach.
                 </p>
               </div>
             </section>
@@ -152,7 +153,7 @@
               </ul>
 
               <div class="book-points">
-                <p class="book-points__label">Na początek warto mieć w głowie</p>
+                <p class="book-points__label">Zanim przejdziesz dalej</p>
                 <ul class="book-points__list">
                   <li>
                     Dawkins proponuje patrzeć na dobór naturalny przez pryzmat genów jako replikatorów —
@@ -199,10 +200,10 @@
               </div>
             </section>
 
-            <figure class="book-article__figure">
+            <figure class="book-article__figure book-article__figure--inline">
               <img
                 src="samolubnygen3.jpg"
-                alt=""
+                alt="Druga ilustracja w treści analizy Samolubnego genu"
                 width="1200"
                 height="800"
                 sizes="(max-width: 680px) 100vw, 42.5rem"
@@ -247,22 +248,31 @@
               <h2 id="werdykt-heading" class="book-article__heading">Werdykt</h2>
               <div class="book-copy">
                 <p>
-                  Pozycja obowiązkowa dla każdego, kto chce rozumieć, skąd w debacie publicznej o ewolucji
-                  biorą się nieporozumienia — i jak je rozplątać. Wymaga cierpliwości, ale nagradza spójnym
-                  obrazem.
+                  To lektura obowiązkowa dla każdego, kto chce wiedzieć, skąd w publicznej dyskusji o ewolucji biorą się
+                  nieporozumienia i jak je rozplątać. Wymaga cierpliwości, ale daje spójny obraz.
                 </p>
                 <p>
-                  Na Booksferze traktujemy ten tekst jako <strong>klucz do języka</strong>, w jakim mówi się
-                  o replikacji i strategiach — nie jako ostatnie słowo całej dyscypliny. Po nim warto sięgać po
-                  nowsze opracowania, żeby domknąć obraz rozwoju, epigenetyki i selekcji wielopoziomowej —
-                  ale bez <em>Samolubnego genu</em> trudno zrozumieć, skąd wzięła się ta debata.
+                  Sam ten tekst daje <strong>klucz do języka</strong>, w jakim mówi się o replikacji i strategiach — nie
+                  zamyka całej dyscypliny. Po nim warto sięgnąć po nowsze opracowania, żeby domknąć rozwój, epigenetykę
+                  i selekcję wielopoziomową — ale bez <em>Samolubnego genu</em> trudno zrozumieć, skąd wzięła się ta
+                  debata.
                 </p>
               </div>
             </section>
           </div>
 
-          <section id="faq" class="book-faq-section" data-book-section aria-labelledby="faq-heading" data-reveal>
-            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">Najczęstsze pytania</h2>
+          <section
+            id="faq"
+            class="book-faq-section book-faq-section--final"
+            data-book-section
+            aria-labelledby="faq-heading"
+            aria-describedby="faq-intro"
+            data-reveal
+          >
+            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">Pytania i odpowiedzi</h2>
+            <p class="book-faq-section__intro" id="faq-intro">
+              Najczęstsze pytania po lekturze — w skrócie.
+            </p>
             <div class="book-faq">
               <details class="book-faq__item">
                 <summary class="book-faq__summary">Czy to książka „o ludzkiej naturze”?</summary>
@@ -306,10 +316,12 @@
       </article>
     </main>
 
-    <footer class="site-footer site-footer--gateway">
+    <footer class="site-footer site-footer--gateway site-footer--book">
       <div class="container">
         <div class="site-footer__links">
+          <span>© Booksfera</span>
           <a class="site-footer__footlink" href="index.html">Strona główna</a>
+          <a class="site-footer__footlink" href="polka.html">Półka</a>
         </div>
       </div>
     </footer>

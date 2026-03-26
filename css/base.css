@@ -39,12 +39,22 @@ img {
 
 /* Okładki w stałym kadrowaniu — globalne height:auto psuje object-fit na iOS/Safari */
 .book-cover img,
+.book-cover__img,
 .home-feature-card__cover img {
   height: 100%;
   width: 100%;
   min-height: 0;
   object-fit: cover;
   object-position: center top;
+  -webkit-touch-callout: none;
+}
+
+.polka-entry__cover img {
+  height: 100%;
+  width: 100%;
+  min-height: 0;
+  object-fit: cover;
+  object-position: center center;
   -webkit-touch-callout: none;
 }
 
