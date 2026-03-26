@@ -1114,6 +1114,55 @@
   margin: 0;
 }
 
+/* ——— O Booksferze — strona esejowa, spokojny rytm czytania ——— */
+.page-about {
+  background: #f4f1eb;
+}
+
+.page-about #main {
+  padding-bottom: max(var(--space-8), env(safe-area-inset-bottom, 0px));
+}
+
+.about-main {
+  padding-block: clamp(3.5rem, 14vw, 5.5rem) clamp(4.5rem, 16vw, 6.5rem);
+}
+
+.about-essay {
+  max-width: 40rem;
+}
+
+.about-essay__title {
+  margin: 0 0 clamp(var(--space-9), 8vw, var(--space-11));
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 1.8rem + 1.2vw, 3rem);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  color: rgba(12, 15, 20, 0.94);
+  text-wrap: balance;
+}
+
+.about-essay__prose {
+  font-family: var(--font-body);
+  font-size: clamp(1.125rem, 1.06rem + 0.2vw, 1.25rem);
+  line-height: 1.9;
+  color: rgba(12, 15, 20, 0.76);
+  max-width: 40rem;
+}
+
+.about-essay__prose p {
+  margin: 0 0 clamp(var(--space-8), 7vw, var(--space-10));
+}
+
+.about-essay__prose p:last-child {
+  margin-bottom: 0;
+}
+
+.site-footer--about .site-footer__links {
+  justify-content: center;
+  gap: var(--space-4) var(--space-6);
+}
+
 /* ——— Strona Półka ——— */
 .page-polka #main {
   padding-bottom: max(var(--space-4), env(safe-area-inset-bottom, 0px));
