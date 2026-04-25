@@ -13,7 +13,8 @@ Thumbs.db
 
 # IDE
 .idea/
-.vscode/
+.vscode/settings.json
+.vscode/extensions.json
 
 # Claude Code
 .claude/
