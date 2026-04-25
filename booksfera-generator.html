@@ -1497,17 +1497,18 @@ async function loadBookFile() {
   const doc = parser.parseFromString(text, 'text/html');
   const dataEl = doc.getElementById('booksfera-data');
 
-  if (!dataEl) {
-    showToast('⚠ Ten plik nie zawiera danych generatora. Zapisz go najpierw przez generator.', false);
-    return;
-  }
-
   let data;
-  try {
-    data = JSON.parse(dataEl.textContent);
-  } catch (e) {
-    showToast('⚠ Błąd odczytu danych: ' + e.message, false);
-    return;
+  if (dataEl) {
+    try {
+      data = JSON.parse(dataEl.textContent);
+    } catch (e) {
+      showToast('⚠ Błąd odczytu danych: ' + e.message, false);
+      return;
+    }
+  } else {
+    // Fallback: parse HTML directly for files created before the generator
+    data = parseBookHtml(doc, fileHandle.name);
+    showToast('ℹ Dane odczytane z HTML — sprawdź czy wszystko się zgadza', true);
   }
 
   if (!data.filename) data.filename = fileHandle.name;
@@ -1517,8 +1518,63 @@ async function loadBookFile() {
   document.getElementById('editBadge').style.display = 'inline-flex';
   document.getElementById('page-title-el').textContent = `Edytujesz: ${data.title || fileHandle.name}`;
   document.getElementById('page-subtitle-el').textContent = 'Zmień co chcesz → kliknij „Zapisz do projektu" → plik zostanie nadpisany.';
-  showToast(`✓ Wczytano: ${data.title || fileHandle.name}`);
   window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function parseBookHtml(doc, filename) {
+  const text = el => el?.textContent?.trim() || '';
+  const attr = (sel, a) => doc.querySelector(sel)?.getAttribute(a) || '';
+
+  const bookTitle = text(doc.querySelector('h1.book-title')) ||
+                    text(doc.querySelector('[itemprop="name"]:not(meta)'));
+  const author    = text(doc.querySelector('[itemprop="author"] [itemprop="name"]'));
+  const year      = attr('meta[itemprop="datePublished"]', 'content');
+  const metaDesc  = attr('meta[name="description"]', 'content');
+  const lede      = text(doc.querySelector('.book-lede'));
+
+  let genre = text(doc.querySelector('.book-kicker'));
+  if (!genre) genre = text(doc.querySelector('.book-hero-kicker')).replace(/·\s*\d{4}.*/, '').trim();
+
+  const coverImg  = doc.querySelector('.book-cover__img');
+  const coverPath = coverImg?.getAttribute('src') || '';
+  const coverAlt  = coverImg?.getAttribute('alt') || '';
+
+  const sectionEls = [...doc.querySelectorAll('.book-article__section')].slice(0, 4);
+  const sections = sectionEls.map(sec => ({
+    title:   text(sec.querySelector('.book-article__heading')),
+    content: [...sec.querySelectorAll('.book-copy p')].map(p => text(p)).filter(Boolean).join('\n\n'),
+  }));
+
+  const faq = [...doc.querySelectorAll('.book-faq__item')].map(el => ({
+    q: text(el.querySelector('.book-faq__summary')),
+    a: text(el.querySelector('.book-faq__answer p') || el.querySelector('.book-faq__answer')),
+  })).filter(f => f.q);
+
+  return {
+    title:       bookTitle,
+    author,
+    year,
+    genre,
+    lede,
+    metaDesc,
+    coverPath,
+    coverAlt,
+    filename:    filename.replace(/\.html$/, ''),
+    readingTime: '',
+    form:        '',
+    relatedLead: '',
+    category:    '',
+    s1title:     sections[0]?.title || 'Overview',
+    s1:          sections[0]?.content || '',
+    s2title:     sections[1]?.title || 'Atmosphere & prose',
+    s2:          sections[1]?.content || '',
+    s3title:     sections[2]?.title || 'Character & tension',
+    s3:          sections[2]?.content || '',
+    s4title:     sections[3]?.title || 'Verdict',
+    s4:          sections[3]?.content || '',
+    faq,
+    related: [],
+  };
 }
 
 function populateFromData(data) {
