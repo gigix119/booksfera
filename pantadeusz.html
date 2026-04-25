@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fafafa" />
+    <meta
+      name="description"
+      content="Zachecam do czytania"
+    />
+    <title>Pan Tadeusz — Adam Mickiewicz — Booksfera</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Booksfera" />
+    <meta property="og:title" content="Pan Tadeusz — Booksfera" />
+    <meta property="og:description" content="Zachecam do czytania" />
+    <meta property="og:url" content="__OG_URL__" />
+    <meta property="og:image" content="__OG_IMAGE__" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pan Tadeusz — Booksfera" />
+    <meta name="twitter:description" content="Zachecam do czytania" />
+    <link rel="canonical" href="__CANONICAL__" />
+    <script>
+      document.documentElement.classList.add("bf-reveal");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body class="book-page">
+    <a class="skip-link" href="#book-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="logo" href="index.html">Booksfera</a>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__link" href="index.html#featured">Shelf</a>
+          <a class="nav__link nav__link--primary" href="reader.html">Read</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="book-main">
+      <article id="book-content" itemscope itemtype="https://schema.org/Book">
+        <meta itemprop="name" content="Pan Tadeusz" />
+        <meta itemprop="datePublished" content="1985" />
+
+        <!-- ——— 1. Hero ——— -->
+        <header class="book-hero container" data-reveal>
+          <div class="book-cover-wrap">
+            <div class="book-cover book-cover--placeholder" role="img" aria-label="Cover: Pan Tadeusz">
+              Pan<br />Tadeusz
+            </div>
+          </div>
+          <div class="book-intro">
+            <p class="book-kicker">Przejście</p>
+            <h1 class="book-title" id="book-title">Pan Tadeusz</h1>
+            <p class="book-author-line">
+              <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">Adam Mickiewicz</span>
+              </span>
+            </p>
+            <p class="book-lede">
+              Zachecam do czytania
+            </p>
+            <div class="book-actions">
+              <a class="btn btn--primary" href="reader.html">Read sample</a>
+              <a class="btn btn--ghost" href="#article">Editorial</a>
+            </div>
+          </div>
+        </header>
+
+        <!-- ——— 2. Meta strip ——— -->
+        <div class="container container--narrow">
+          <dl class="book-meta-strip" data-reveal>
+            <div class="book-meta-strip__group">
+              <dt>Author</dt>
+              <dd>Adam Mickiewicz</dd>
+            </div>
+            <div class="book-meta-strip__group">
+              <dt>Published</dt>
+              <dd><time datetime="1985">1985</time></dd>
+            </div>
+            
+            <div class="book-meta-strip__group">
+              <dt>Form</dt>
+              <dd>Ewolucja</dd>
+            </div>
+          </dl>
+        </div>
+
+        <!-- ——— Nav ——— -->
+        <nav
+          class="book-section-nav"
+          id="article"
+          aria-label="Sections in this editorial"
+          data-book-nav
+          data-reveal
+        >
+          <div class="container book-section-nav__inner">
+            <div class="book-section-nav__track">
+              <a class="book-section-nav__link is-active" href="#faq" data-section-id="faq">FAQ</a>
+            </div>
+          </div>
+        </nav>
+
+        <!-- ——— 3. Article ——— -->
+        <div class="book-article-wrap container container--narrow">
+          <div class="book-article" data-reveal>
+
+          </div>
+
+          <!-- ——— 4. FAQ ——— -->
+          <section id="faq" class="book-faq-section" data-book-section aria-labelledby="faq-heading" data-reveal>
+            <p class="book-faq-section__label">For readers</p>
+            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">Questions</h2>
+            <div class="book-faq">
+              
+              <details class="book-faq__item">
+                <summary class="book-faq__summary">Is this book plot-driven?</summary>
+                <div class="book-faq__answer">
+                  <p>It has a story, but the engine is psychological and atmospheric. Expect interior movement more than a chain of external events.</p>
+                </div>
+              </details>
+              <details class="book-faq__item">
+                <summary class="book-faq__summary">Best way to read it?</summary>
+                <div class="book-faq__answer">
+                  <p>Longer sessions help the rhythm land — chapters are built to accumulate rather than reset. Evenings or quiet weekends work well.</p>
+                </div>
+              </details>
+            </div>
+          </section>
+        </div>
+
+        
+        <!-- ——— 5. Related books ——— -->
+        <div class="container book-page__shelf">
+          <section id="related" class="book-section book-section--shelf" aria-labelledby="related-heading" data-reveal>
+            <h2 id="related-heading" class="book-section-title book-section-title--display">Related books</h2>
+            <p class="book-similar__lead"></p>
+            <div class="card-grid">
+              
+            </div>
+          </section>
+        </div>
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="reader-end">
+          <a href="index.html">← Back to Booksfera</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/app.js" defer></script>
+  </body>
+</html>

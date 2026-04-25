@@ -1,0 +1,1680 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booksfera — Generator Stron Książek</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0e0c;
+      --surface: #1a1915;
+      --surface2: #22201b;
+      --border: #2e2b24;
+      --border-focus: #8a7a5a;
+      --text: #e8e2d5;
+      --text-muted: #7a7267;
+      --accent: #c9a96e;
+      --accent-dim: rgba(201, 169, 110, 0.12);
+      --accent-hover: #dbbf83;
+      --danger: #c96e6e;
+      --success: #6ec98a;
+      --radius: 8px;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-ui: 'DM Sans', system-ui, sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-ui);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ——— Layout ——— */
+    .app-shell {
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      min-height: 100vh;
+    }
+
+    /* ——— Sidebar ——— */
+    .sidebar {
+      background: var(--surface);
+      border-right: 1px solid var(--border);
+      padding: 32px 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .sidebar-logo {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+    }
+
+    .sidebar-logo span {
+      font-weight: 500;
+      color: var(--text-muted);
+      font-size: 13px;
+      display: block;
+      font-family: var(--font-ui);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .nav-sections {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .nav-section-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-muted);
+      padding: 8px 12px 4px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius);
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.15s;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      width: 100%;
+      text-align: left;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--accent-dim);
+      color: var(--accent);
+    }
+
+    .nav-link .icon {
+      width: 18px;
+      text-align: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-actions {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    /* ——— Main content ——— */
+    .main-content {
+      padding: 40px 48px;
+      max-width: 900px;
+    }
+
+    .page-header {
+      margin-bottom: 40px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 8px;
+    }
+
+    .page-subtitle {
+      font-size: 15px;
+      color: var(--text-muted);
+    }
+
+    /* ——— Form sections ——— */
+    .form-block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 20px;
+    }
+
+    .form-block-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .form-block-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--accent-dim);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .form-block-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .form-block-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 1px;
+    }
+
+    /* ——— Fields ——— */
+    .field-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .field-grid.cols-3 {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .field-grid.cols-1 {
+      grid-template-columns: 1fr;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field.full-width {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted);
+    }
+
+    label .required {
+      color: var(--accent);
+      margin-left: 2px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select,
+    textarea {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      padding: 10px 14px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      width: 100%;
+      resize: vertical;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 3px rgba(138, 122, 90, 0.12);
+    }
+
+    textarea {
+      min-height: 100px;
+      line-height: 1.6;
+    }
+
+    textarea.tall {
+      min-height: 160px;
+    }
+
+    input::placeholder, textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.6;
+    }
+
+    select option {
+      background: var(--surface2);
+    }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* ——— FAQ items ——— */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .faq-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .faq-item-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+    }
+
+    .btn-icon {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px 8px;
+      font-size: 14px;
+      transition: all 0.15s;
+    }
+
+    .btn-icon:hover {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+
+    /* ——— Related books ——— */
+    .related-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .related-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+    }
+
+    .related-item-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr auto;
+      gap: 10px;
+      align-items: end;
+    }
+
+    /* ——— Buttons ——— */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-family: var(--font-ui);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn--primary {
+      background: var(--accent);
+      color: #0f0e0c;
+    }
+
+    .btn--primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(201, 169, 110, 0.25);
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+    }
+
+    .btn--ghost:hover {
+      border-color: var(--border-focus);
+      color: var(--text);
+    }
+
+    .btn--danger {
+      background: transparent;
+      color: var(--danger);
+      border: 1px solid rgba(201, 110, 110, 0.3);
+    }
+
+    .btn--danger:hover {
+      background: rgba(201, 110, 110, 0.1);
+    }
+
+    .btn--sm {
+      padding: 6px 12px;
+      font-size: 13px;
+    }
+
+    .btn--add {
+      background: var(--accent-dim);
+      color: var(--accent);
+      border: 1px dashed rgba(201, 169, 110, 0.3);
+      width: 100%;
+      justify-content: center;
+      padding: 12px;
+      margin-top: 8px;
+    }
+
+    .btn--add:hover {
+      border-color: var(--accent);
+      background: rgba(201, 169, 110, 0.18);
+    }
+
+    /* ——— Actions bar ——— */
+    .actions-bar {
+      position: sticky;
+      bottom: 0;
+      background: linear-gradient(to top, var(--bg) 60%, transparent);
+      padding: 24px 0 32px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    /* ——— Success toast ——— */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      background: var(--surface);
+      border: 1px solid var(--success);
+      color: var(--success);
+      border-radius: var(--radius);
+      padding: 14px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s;
+      pointer-events: none;
+      z-index: 100;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ——— Preview badge ——— */
+    .filename-preview {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-family: monospace;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      display: inline-block;
+    }
+
+    /* ——— Divider ——— */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      margin: 24px 0;
+    }
+
+    /* ——— Cover preview ——— */
+    .cover-preview-wrap {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+    }
+
+    .cover-placeholder-preview {
+      width: 100px;
+      height: 140px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(201, 169, 110, 0.2);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 13px;
+      color: var(--accent);
+      line-height: 1.3;
+      flex-shrink: 0;
+      padding: 8px;
+      word-break: break-word;
+    }
+
+    .cover-fields {
+      flex: 1;
+    }
+
+    /* ——— Folder status ——— */
+    .folder-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background: var(--accent-dim);
+      border: 1px solid rgba(201, 169, 110, 0.25);
+      border-radius: var(--radius);
+      font-size: 13px;
+      color: var(--accent);
+      word-break: break-all;
+    }
+
+    .folder-status__name {
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+
+    /* ——— Edit mode badge ——— */
+    .edit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      background: rgba(201, 169, 110, 0.15);
+      border: 1px solid rgba(201, 169, 110, 0.4);
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    /* ——— Delete overlay ——— */
+    .delete-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .delete-overlay.open {
+      display: flex;
+    }
+
+    .delete-dialog {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 32px;
+      width: 420px;
+      max-width: 90vw;
+    }
+
+    .delete-dialog h2 {
+      font-family: var(--font-display);
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .delete-dialog p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    .delete-dialog select {
+      margin-bottom: 20px;
+    }
+
+    .delete-dialog-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+
+    /* ——— Scrollbar ——— */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--border-focus); }
+
+    @media (max-width: 900px) {
+      .app-shell { grid-template-columns: 1fr; }
+      .sidebar { position: static; height: auto; }
+      .main-content { padding: 24px 20px; }
+      .field-grid { grid-template-columns: 1fr; }
+      .field-grid.cols-3 { grid-template-columns: 1fr; }
+      .related-item-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ——— Sidebar ——— -->
+  <aside class="sidebar">
+    <div>
+      <div class="sidebar-logo">
+        Booksfera
+        <span>Generator stron</span>
+      </div>
+    </div>
+
+    <nav class="nav-sections">
+      <div class="nav-section-label">Sekcje formularza</div>
+      <a class="nav-link active" href="#meta">
+        <span class="icon">📖</span> Dane podstawowe
+      </a>
+      <a class="nav-link" href="#sections">
+        <span class="icon">✍️</span> Treść edytorialu
+      </a>
+      <a class="nav-link" href="#faq-section">
+        <span class="icon">❓</span> FAQ
+      </a>
+      <a class="nav-link" href="#related-section">
+        <span class="icon">📚</span> Podobne książki
+      </a>
+    </nav>
+
+    <div class="sidebar-actions">
+      <div class="folder-status" id="folderStatus" style="display:none">
+        <span>📁</span>
+        <span class="folder-status__name" id="folderName"></span>
+        <button class="btn-icon" onclick="resetFolder()" title="Zmień folder">✕</button>
+      </div>
+      <button class="btn btn--ghost" onclick="loadBookFile()">📂 Edytuj istniejącą</button>
+      <button class="btn btn--danger" onclick="showDeletePanel()">✕ Usuń książkę</button>
+      <button class="btn btn--ghost" onclick="clearForm()">🗑 Wyczyść formularz</button>
+      <button class="btn btn--ghost" onclick="loadExample()">📄 Załaduj przykład</button>
+    </div>
+  </aside>
+
+  <!-- ——— Main ——— -->
+  <main class="main-content">
+    <div class="page-header">
+      <div id="editBadge" class="edit-badge" style="display:none">✏️ Tryb edycji</div>
+      <h1 class="page-title" id="page-title-el">Nowa strona książki</h1>
+      <p class="page-subtitle" id="page-subtitle-el">Wypełnij formularz → kliknij „Zapisz do projektu" → plik trafi do folderu i pojawi się na Półce.</p>
+    </div>
+
+    <!-- ——— 1. Dane podstawowe ——— -->
+    <div id="meta" class="form-block">
+      <div class="form-block-header">
+        <div class="form-block-icon">📖</div>
+        <div>
+          <div class="form-block-title">Dane podstawowe</div>
+          <div class="form-block-desc">Tytuł, autor, gatunek i meta informacje</div>
+        </div>
+      </div>
+
+      <div class="field-grid">
+        <div class="field">
+          <label>Tytuł <span class="required">*</span></label>
+          <input type="text" id="title" placeholder="np. Samolubny Gen" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Autor <span class="required">*</span></label>
+          <input type="text" id="author" placeholder="np. Richard Dawkins" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Rok wydania</label>
+          <input type="number" id="year" placeholder="np. 1976" min="1800" max="2030" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Gatunek / Kicker</label>
+          <input type="text" id="genre" placeholder="np. Popular science" oninput="updatePreview()" />
+        </div>
+        <div class="field">
+          <label>Kategoria na Półce <span class="required">*</span></label>
+          <select id="category">
+            <option value="">— wybierz —</option>
+            <option value="Nauka">Nauka</option>
+            <option value="Psychologia">Psychologia</option>
+            <option value="Systemy">Systemy</option>
+            <option value="Biznes">Biznes</option>
+            <option value="Społeczeństwo">Społeczeństwo</option>
+          </select>
+          <div class="field-hint">Sekcja w polka.html, do której trafi ta książka</div>
+        </div>
+        <div class="field">
+          <label>Czas czytania</label>
+          <input type="text" id="readingTime" placeholder="np. Attentive · ~8 hours" />
+        </div>
+        <div class="field">
+          <label>Forma / Form</label>
+          <input type="text" id="form" placeholder="np. Non-fiction" />
+        </div>
+        <div class="field full-width">
+          <label>Krótki opis (lede) <span class="required">*</span></label>
+          <textarea id="lede" rows="3" placeholder="Jedno zdanie / krótki akapit pod tytułem. Pokazuje się w hero sekcji."></textarea>
+        </div>
+        <div class="field full-width">
+          <label>Meta description (SEO)</label>
+          <textarea id="metaDesc" rows="2" placeholder="Opis dla Google / social share (opcjonalnie — jeśli pusty, użyje lede)"></textarea>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="form-block-header">
+        <div>
+          <div class="form-block-title" style="font-size:16px">Okładka</div>
+          <div class="form-block-desc">Ścieżka do obrazka lub tekst zastępczy (placeholder)</div>
+        </div>
+      </div>
+
+      <div class="cover-preview-wrap">
+        <div class="cover-placeholder-preview" id="coverPreview">Tytuł<br />książki</div>
+        <div class="cover-fields" style="display:flex;flex-direction:column;gap:14px">
+          <div class="field">
+            <label>Ścieżka do okładki (opcjonalnie)</label>
+            <input type="text" id="coverPath" placeholder="np. public/covers/samolubny-gen.jpg" oninput="updatePreview()" />
+            <div class="field-hint">Zostaw puste — wygeneruje placeholder tekstowy jak w oryginale.</div>
+          </div>
+          <div class="field">
+            <label>Alt text okładki</label>
+            <input type="text" id="coverAlt" placeholder="np. Cover: Samolubny Gen" />
+          </div>
+        </div>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="field">
+        <label>Nazwa pliku wyjściowego</label>
+        <input type="text" id="filename" placeholder="np. samolubny-gen" oninput="updateFilenamePreview()" />
+        <div class="field-hint" style="margin-top:6px">Plik zostanie zapisany jako: <span class="filename-preview" id="filenamePreview">samolubny-gen.html</span></div>
+      </div>
+    </div>
+
+    <!-- ——— 2. Treść edytorialu ——— -->
+    <div id="sections" class="form-block">
+      <div class="form-block-header">
+        <div class="form-block-icon">✍️</div>
+        <div>
+          <div class="form-block-title">Treść edytorialu</div>
+          <div class="form-block-desc">Sekcje artykułu — każda to osobna zakładka w nawigacji</div>
+        </div>
+      </div>
+
+      <!-- Overview -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Tytuł sekcji 1</label>
+        <input type="text" id="s1title" value="Overview" />
+      </div>
+      <div class="field" style="margin-bottom:24px">
+        <label>Treść — Overview <span class="required">*</span></label>
+        <textarea id="s1" class="tall" placeholder="Główny opis / streszczenie książki. Możesz używać zwykłego tekstu — każda linia to osobny akapit.&#10;&#10;Możesz też wkleić kilka akapitów oddzielonych pustą linią."></textarea>
+      </div>
+
+      <!-- Atmosphere -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Tytuł sekcji 2</label>
+        <input type="text" id="s2title" value="Atmosphere &amp; prose" />
+      </div>
+      <div class="field" style="margin-bottom:24px">
+        <label>Treść — Atmosphere</label>
+        <textarea id="s2" class="tall" placeholder="Styl, nastrój, język książki..."></textarea>
+      </div>
+
+      <!-- Character -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Tytuł sekcji 3</label>
+        <input type="text" id="s3title" value="Character &amp; tension" />
+      </div>
+      <div class="field" style="margin-bottom:24px">
+        <label>Treść — Character</label>
+        <textarea id="s3" class="tall" placeholder="Postacie, napięcie, fabuła..."></textarea>
+      </div>
+
+      <!-- Verdict -->
+      <div class="field" style="margin-bottom:20px">
+        <label>Tytuł sekcji 4</label>
+        <input type="text" id="s4title" value="Verdict" />
+      </div>
+      <div class="field">
+        <label>Treść — Verdict</label>
+        <textarea id="s4" class="tall" placeholder="Podsumowanie, ocena, komu polecasz..."></textarea>
+      </div>
+    </div>
+
+    <!-- ——— 3. FAQ ——— -->
+    <div id="faq-section" class="form-block">
+      <div class="form-block-header">
+        <div class="form-block-icon">❓</div>
+        <div>
+          <div class="form-block-title">FAQ</div>
+          <div class="form-block-desc">Pytania i odpowiedzi dla czytelników</div>
+        </div>
+      </div>
+
+      <div class="faq-list" id="faqList">
+        <!-- FAQ items injected by JS -->
+      </div>
+
+      <button class="btn btn--add" onclick="addFaq()">+ Dodaj pytanie</button>
+    </div>
+
+    <!-- ——— 4. Podobne książki ——— -->
+    <div id="related-section" class="form-block">
+      <div class="form-block-header">
+        <div class="form-block-icon">📚</div>
+        <div>
+          <div class="form-block-title">Podobne książki</div>
+          <div class="form-block-desc">Do 3 pozycji w sekcji "Related books"</div>
+        </div>
+      </div>
+
+      <div class="field" style="margin-bottom:16px">
+        <label>Lead pod tytułem "Related books"</label>
+        <input type="text" id="relatedLead" placeholder="np. Same patience, different harbors." />
+      </div>
+
+      <div class="related-list" id="relatedList">
+        <!-- Related items injected by JS -->
+      </div>
+
+      <button class="btn btn--add" onclick="addRelated()" id="addRelatedBtn">+ Dodaj książkę</button>
+    </div>
+
+    <!-- ——— Actions ——— -->
+    <div class="actions-bar">
+      <button class="btn btn--primary" onclick="saveToProject()">
+        💾 Zapisz do projektu
+      </button>
+      <button class="btn btn--ghost" onclick="generateAndDownload()">
+        ⬇ Pobierz HTML
+      </button>
+      <button class="btn btn--ghost" onclick="copyToClipboard()">
+        📋 Kopiuj HTML
+      </button>
+    </div>
+  </main>
+</div>
+
+<!-- ——— Delete overlay ——— -->
+<div class="delete-overlay" id="deleteOverlay">
+  <div class="delete-dialog">
+    <h2>Usuń książkę</h2>
+    <p>Wybierz plik do usunięcia. Operacja usunie plik HTML i wpis z polka.html. Jest nieodwracalna.</p>
+    <select id="deleteSelect"></select>
+    <div class="delete-dialog-actions">
+      <button class="btn btn--ghost" onclick="hideDeletePanel()">Anuluj</button>
+      <button class="btn btn--danger" onclick="confirmDelete()">Usuń na stałe</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ——— State ———
+let faqItems = [];
+let relatedItems = [];
+let isEditMode = false;
+
+// ——— Init ———
+document.addEventListener('DOMContentLoaded', () => {
+  addFaq('Is this book plot-driven?', 'It has a story, but the engine is psychological and atmospheric. Expect interior movement more than a chain of external events.');
+  addFaq('Best way to read it?', 'Longer sessions help the rhythm land — chapters are built to accumulate rather than reset. Evenings or quiet weekends work well.');
+  addRelated();
+  updatePreview();
+});
+
+// ——— FAQ ———
+function addFaq(q = '', a = '') {
+  const id = Date.now() + Math.random();
+  faqItems.push({ id, q, a });
+  renderFaq();
+}
+
+function removeFaq(id) {
+  faqItems = faqItems.filter(f => f.id !== id);
+  renderFaq();
+}
+
+function renderFaq() {
+  const list = document.getElementById('faqList');
+  list.innerHTML = faqItems.map((f, i) => `
+    <div class="faq-item" data-id="${f.id}">
+      <div class="faq-item-header">
+        <span class="faq-item-label">Pytanie ${i + 1}</span>
+        <button class="btn-icon" onclick="removeFaq(${f.id})">✕</button>
+      </div>
+      <div class="field" style="margin-bottom:10px">
+        <label>Pytanie</label>
+        <input type="text" value="${escHtml(f.q)}" onchange="updateFaq(${f.id}, 'q', this.value)" placeholder="np. Is this book plot-driven?" />
+      </div>
+      <div class="field">
+        <label>Odpowiedź</label>
+        <textarea onchange="updateFaq(${f.id}, 'a', this.value)" placeholder="Odpowiedź...">${escHtml(f.a)}</textarea>
+      </div>
+    </div>
+  `).join('');
+}
+
+function updateFaq(id, field, val) {
+  const item = faqItems.find(f => f.id === id);
+  if (item) item[field] = val;
+}
+
+// ——— Related ———
+function addRelated() {
+  if (relatedItems.length >= 3) return;
+  const id = Date.now() + Math.random();
+  relatedItems.push({ id, title: '', author: '', genre: '', excerpt: '', href: 'book.html' });
+  renderRelated();
+}
+
+function removeRelated(id) {
+  relatedItems = relatedItems.filter(r => r.id !== id);
+  renderRelated();
+}
+
+function renderRelated() {
+  const list = document.getElementById('relatedList');
+  list.innerHTML = relatedItems.map((r, i) => `
+    <div class="related-item">
+      <div class="related-item-grid">
+        <div class="field">
+          <label>Tytuł</label>
+          <input type="text" value="${escHtml(r.title)}" onchange="updateRelated(${r.id}, 'title', this.value)" placeholder="Salt House" />
+        </div>
+        <div class="field">
+          <label>Autor</label>
+          <input type="text" value="${escHtml(r.author)}" onchange="updateRelated(${r.id}, 'author', this.value)" placeholder="M. Rowe" />
+        </div>
+        <div class="field">
+          <label>Gatunek</label>
+          <input type="text" value="${escHtml(r.genre)}" onchange="updateRelated(${r.id}, 'genre', this.value)" placeholder="Fiction" />
+        </div>
+        <button class="btn-icon" onclick="removeRelated(${r.id})" style="align-self:flex-end;margin-bottom:1px">✕</button>
+        <div class="field" style="grid-column:1/-1">
+          <label>Krótki opis (excerpt)</label>
+          <input type="text" value="${escHtml(r.excerpt)}" onchange="updateRelated(${r.id}, 'excerpt', this.value)" placeholder="Shoreline memory and domestic tension." />
+        </div>
+        <div class="field" style="grid-column:1/3">
+          <label>Link (href)</label>
+          <input type="text" value="${escHtml(r.href)}" onchange="updateRelated(${r.id}, 'href', this.value)" placeholder="book.html lub /ksiazki/salt-house.html" />
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('addRelatedBtn').style.display = relatedItems.length >= 3 ? 'none' : '';
+}
+
+function updateRelated(id, field, val) {
+  const item = relatedItems.find(r => r.id === id);
+  if (item) item[field] = val;
+}
+
+// ——— Preview helpers ———
+function updatePreview() {
+  const title = document.getElementById('title').value || 'Tytuł\nksiążki';
+  document.getElementById('coverPreview').innerHTML = escHtml(title).replace(/\n/, '<br/>');
+}
+
+function updateFilenamePreview() {
+  const raw = document.getElementById('filename').value || 'book';
+  const safe = raw.replace(/\.html$/, '');
+  document.getElementById('filenamePreview').textContent = safe + '.html';
+}
+
+// ——— Collect helpers ———
+function collect() {
+  return {
+    title:       v('title'),
+    author:      v('author'),
+    year:        v('year'),
+    genre:       v('genre'),
+    readingTime: v('readingTime'),
+    form:        v('form'),
+    lede:        v('lede'),
+    metaDesc:    v('metaDesc'),
+    coverPath:   v('coverPath'),
+    coverAlt:    v('coverAlt') || `Cover: ${v('title')}`,
+    filename:    (v('filename') || 'book').replace(/\.html$/, '') + '.html',
+    relatedLead: v('relatedLead'),
+    s1title:     v('s1title') || 'Overview',
+    s2title:     v('s2title') || 'Atmosphere',
+    s3title:     v('s3title') || 'Character',
+    s4title:     v('s4title') || 'Verdict',
+    s1:          v('s1'),
+    s2:          v('s2'),
+    s3:          v('s3'),
+    s4:          v('s4'),
+  };
+}
+
+function collectAll() {
+  const d = collect();
+  d.category = document.getElementById('category')?.value || '';
+  d.faq = [...document.querySelectorAll('.faq-item')].map(el => {
+    const inputs = el.querySelectorAll('input, textarea');
+    return { q: inputs[0]?.value || '', a: inputs[1]?.value || '' };
+  }).filter(f => f.q);
+  d.related = [...document.querySelectorAll('.related-item')].map(el => {
+    const inputs = el.querySelectorAll('input');
+    return {
+      title:   inputs[0]?.value || '',
+      author:  inputs[1]?.value || '',
+      genre:   inputs[2]?.value || '',
+      excerpt: inputs[3]?.value || '',
+      href:    inputs[4]?.value || 'book.html',
+    };
+  }).filter(r => r.title);
+  return d;
+}
+
+function v(id) {
+  return document.getElementById(id)?.value?.trim() || '';
+}
+
+function textToHtml(raw) {
+  if (!raw) return '';
+  return raw.split(/\n{2,}/)
+    .map(block => block.trim())
+    .filter(Boolean)
+    .map(block => `<p>${escHtml(block).replace(/\n/g, ' ')}</p>`)
+    .join('\n                ');
+}
+
+function escHtml(str) {
+  return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function sectionId(title) {
+  return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+}
+
+function buildFaqHtml() {
+  const items = [...document.querySelectorAll('.faq-item')].map(el => {
+    const inputs = el.querySelectorAll('input, textarea');
+    return { q: inputs[0]?.value || '', a: inputs[1]?.value || '' };
+  });
+  return items.filter(f => f.q).map(f => `
+              <details class="book-faq__item">
+                <summary class="book-faq__summary">${escHtml(f.q)}</summary>
+                <div class="book-faq__answer">
+                  <p>${escHtml(f.a)}</p>
+                </div>
+              </details>`).join('');
+}
+
+function buildRelatedHtml(relatedLead) {
+  const items = [...document.querySelectorAll('.related-item')].map(el => {
+    const inputs = el.querySelectorAll('input');
+    return {
+      title:   inputs[0]?.value || '',
+      author:  inputs[1]?.value || '',
+      genre:   inputs[2]?.value || '',
+      excerpt: inputs[3]?.value || '',
+      href:    inputs[4]?.value || 'book.html',
+    };
+  });
+
+  if (!items.length) return '';
+
+  const cards = items.filter(r => r.title).map(r => {
+    const words = r.title.split(' ');
+    const mid = Math.ceil(words.length / 2);
+    const ph = words.slice(0, mid).join(' ') + (words.length > 1 ? '<br />' + words.slice(mid).join(' ') : '');
+    return `
+              <article class="book-card" data-reveal>
+                <a class="book-card__link" href="${escHtml(r.href)}">
+                  <div class="book-card__cover">
+                    <span class="book-card__cover--placeholder" aria-hidden="true">${ph}</span>
+                  </div>
+                  <div class="book-card__body">
+                    <span class="book-card__meta">${escHtml(r.genre)}</span>
+                    <h3 class="book-card__title">${escHtml(r.title)}</h3>
+                    <p class="book-card__author">${escHtml(r.author)}</p>
+                    <p class="book-card__excerpt">${escHtml(r.excerpt)}</p>
+                  </div>
+                </a>
+              </article>`;
+  }).join('');
+
+  return `
+        <!-- ——— 5. Related books ——— -->
+        <div class="container book-page__shelf">
+          <section id="related" class="book-section book-section--shelf" aria-labelledby="related-heading" data-reveal>
+            <h2 id="related-heading" class="book-section-title book-section-title--display">Related books</h2>
+            <p class="book-similar__lead">${escHtml(relatedLead)}</p>
+            <div class="card-grid">
+              ${cards}
+            </div>
+          </section>
+        </div>`;
+}
+
+function buildNavLinks(d) {
+  const sections = [
+    { id: sectionId(d.s1title), label: d.s1title },
+    { id: sectionId(d.s2title), label: d.s2title },
+    { id: sectionId(d.s3title), label: d.s3title },
+    { id: sectionId(d.s4title), label: d.s4title },
+    { id: 'faq', label: 'FAQ' },
+  ].filter((s, i) => {
+    if (i === 4) return true;
+    const content = [d.s1, d.s2, d.s3, d.s4][i];
+    return content && content.trim();
+  });
+
+  return sections.map((s, i) =>
+    `<a class="book-section-nav__link${i === 0 ? ' is-active' : ''}" href="#${s.id}" data-section-id="${s.id}">${s.label}</a>`
+  ).join('\n              ');
+}
+
+function buildArticleSections(d) {
+  const sections = [
+    { id: sectionId(d.s1title), title: d.s1title, content: d.s1 },
+    { id: sectionId(d.s2title), title: d.s2title, content: d.s2 },
+    { id: sectionId(d.s3title), title: d.s3title, content: d.s3 },
+    { id: sectionId(d.s4title), title: d.s4title, content: d.s4 },
+  ].filter(s => s.content && s.content.trim());
+
+  return sections.map(s => `
+            <section
+              id="${s.id}"
+              class="book-article__section"
+              data-book-section
+              aria-labelledby="${s.id}-heading"
+            >
+              <h2 id="${s.id}-heading" class="book-article__heading">${escHtml(s.title)}</h2>
+              <div class="book-copy">
+                ${textToHtml(s.content)}
+              </div>
+            </section>`).join('\n');
+}
+
+function buildCoverHtml(d) {
+  if (d.coverPath) {
+    return `<img class="book-cover__img" src="${escHtml(d.coverPath)}" alt="${escHtml(d.coverAlt)}" />`;
+  }
+  const words = d.title ? d.title.split(' ') : ['Book'];
+  const mid = Math.ceil(words.length / 2);
+  const ph = words.slice(0, mid).join(' ') + (words.length > 1 ? '<br />' + words.slice(mid).join(' ') : '');
+  return `<div class="book-cover book-cover--placeholder" role="img" aria-label="${escHtml(d.coverAlt)}">\n              ${ph}\n            </div>`;
+}
+
+function generateHtml() {
+  const d = collect();
+  const meta = d.metaDesc || d.lede;
+  const allData = JSON.stringify(collectAll());
+
+  return `<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#fafafa" />
+    <meta
+      name="description"
+      content="${escHtml(meta)}"
+    />
+    <title>${escHtml(d.title)}${d.author ? ' — ' + escHtml(d.author) : ''} — Booksfera</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Booksfera" />
+    <meta property="og:title" content="${escHtml(d.title)} — Booksfera" />
+    <meta property="og:description" content="${escHtml(meta)}" />
+    <meta property="og:url" content="__OG_URL__" />
+    <meta property="og:image" content="__OG_IMAGE__" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="${escHtml(d.title)} — Booksfera" />
+    <meta name="twitter:description" content="${escHtml(meta)}" />
+    <link rel="canonical" href="__CANONICAL__" />
+    <script>
+      document.documentElement.classList.add("bf-reveal");
+    <\/script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body class="book-page">
+    <a class="skip-link" href="#book-content">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container site-header__inner">
+        <a class="logo" href="index.html">Booksfera</a>
+        <nav class="nav" aria-label="Primary">
+          <a class="nav__link" href="index.html#featured">Shelf</a>
+          <a class="nav__link nav__link--primary" href="reader.html">Read</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main" class="book-main">
+      <article id="book-content" itemscope itemtype="https://schema.org/Book">
+        <meta itemprop="name" content="${escHtml(d.title)}" />
+        ${d.year ? `<meta itemprop="datePublished" content="${escHtml(d.year)}" />` : ''}
+
+        <!-- ——— 1. Hero ——— -->
+        <header class="book-hero container" data-reveal>
+          <div class="book-cover-wrap">
+            ${buildCoverHtml(d)}
+          </div>
+          <div class="book-intro">
+            ${d.genre ? `<p class="book-kicker">${escHtml(d.genre)}</p>` : ''}
+            <h1 class="book-title" id="book-title">${escHtml(d.title)}</h1>
+            <p class="book-author-line">
+              <span itemprop="author" itemscope itemtype="https://schema.org/Person">
+                <span itemprop="name">${escHtml(d.author)}</span>
+              </span>
+            </p>
+            <p class="book-lede">
+              ${escHtml(d.lede)}
+            </p>
+            <div class="book-actions">
+              <a class="btn btn--primary" href="reader.html">Read sample</a>
+              <a class="btn btn--ghost" href="#article">Editorial</a>
+            </div>
+          </div>
+        </header>
+
+        <!-- ——— 2. Meta strip ——— -->
+        <div class="container container--narrow">
+          <dl class="book-meta-strip" data-reveal>
+            <div class="book-meta-strip__group">
+              <dt>Author</dt>
+              <dd>${escHtml(d.author)}</dd>
+            </div>
+            ${d.year ? `<div class="book-meta-strip__group">
+              <dt>Published</dt>
+              <dd><time datetime="${escHtml(d.year)}">${escHtml(d.year)}</time></dd>
+            </div>` : ''}
+            ${d.readingTime ? `<div class="book-meta-strip__group">
+              <dt>Reading</dt>
+              <dd>${escHtml(d.readingTime)}</dd>
+            </div>` : ''}
+            ${d.form ? `<div class="book-meta-strip__group">
+              <dt>Form</dt>
+              <dd>${escHtml(d.form)}</dd>
+            </div>` : ''}
+          </dl>
+        </div>
+
+        <!-- ——— Nav ——— -->
+        <nav
+          class="book-section-nav"
+          id="article"
+          aria-label="Sections in this editorial"
+          data-book-nav
+          data-reveal
+        >
+          <div class="container book-section-nav__inner">
+            <div class="book-section-nav__track">
+              ${buildNavLinks(d)}
+            </div>
+          </div>
+        </nav>
+
+        <!-- ——— 3. Article ——— -->
+        <div class="book-article-wrap container container--narrow">
+          <div class="book-article" data-reveal>
+${buildArticleSections(d)}
+          </div>
+
+          <!-- ——— 4. FAQ ——— -->
+          <section id="faq" class="book-faq-section" data-book-section aria-labelledby="faq-heading" data-reveal>
+            <p class="book-faq-section__label">For readers</p>
+            <h2 id="faq-heading" class="book-article__heading book-article__heading--sub">Questions</h2>
+            <div class="book-faq">
+              ${buildFaqHtml()}
+            </div>
+          </section>
+        </div>
+
+        ${buildRelatedHtml(d.relatedLead)}
+      </article>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p class="reader-end">
+          <a href="index.html">← Back to Booksfera</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="js/app.js" defer><\/script>
+    <script type="application/json" id="booksfera-data">${allData}<\/script>
+  </body>
+</html>`;
+}
+
+function generateAndDownload() {
+  const d = collect();
+  if (!d.title || !d.author) {
+    showToast('⚠ Wypełnij przynajmniej Tytuł i Autora', false);
+    return;
+  }
+  const html = generateHtml();
+  const blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = d.filename;
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(`✓ Pobrano ${d.filename}`);
+}
+
+async function copyToClipboard() {
+  const html = generateHtml();
+  try {
+    await navigator.clipboard.writeText(html);
+    showToast('✓ Skopiowano HTML do schowka');
+  } catch {
+    showToast('⚠ Nie udało się skopiować — pobierz plik', false);
+  }
+}
+
+function showToast(msg, ok = true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.style.borderColor = ok ? 'var(--success)' : 'var(--danger)';
+  t.style.color = ok ? 'var(--success)' : 'var(--danger)';
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function clearForm() {
+  if (!confirm('Wyczyścić cały formularz?')) return;
+  document.querySelectorAll('input[type="text"], input[type="number"], textarea').forEach(el => el.value = '');
+  faqItems = [];
+  relatedItems = [];
+  renderFaq();
+  renderRelated();
+  updatePreview();
+  isEditMode = false;
+  document.getElementById('editBadge').style.display = 'none';
+  document.getElementById('page-title-el').textContent = 'Nowa strona książki';
+  document.getElementById('page-subtitle-el').textContent = 'Wypełnij formularz → kliknij „Zapisz do projektu" → plik trafi do folderu i pojawi się na Półce.';
+}
+
+// ——— Project save (File System Access API) ———
+let projectDirHandle = null;
+
+function resetFolder() {
+  projectDirHandle = null;
+  document.getElementById('folderStatus').style.display = 'none';
+  showToast('Folder odłączony — wybierz go ponownie przy zapisie');
+}
+
+async function ensureProjectFolder() {
+  if (projectDirHandle) return true;
+  if (!window.showDirectoryPicker) {
+    showToast('⚠ Użyj Chrome lub Edge — Firefox nie obsługuje File System Access API', false);
+    return false;
+  }
+  try {
+    projectDirHandle = await window.showDirectoryPicker({ mode: 'readwrite', startIn: 'documents' });
+  } catch (e) {
+    if (e.name !== 'AbortError') showToast(`⚠ Błąd: ${e.message}`, false);
+    return false;
+  }
+  try {
+    await projectDirHandle.getFileHandle('polka.html');
+  } catch {
+    showToast('⚠ To nie wygląda jak folder projektu Booksfera (brak polka.html)', false);
+    projectDirHandle = null;
+    return false;
+  }
+  document.getElementById('folderName').textContent = projectDirHandle.name;
+  document.getElementById('folderStatus').style.display = 'flex';
+  return true;
+}
+
+async function saveToProject() {
+  const d = collect();
+  if (!d.title || !d.author) {
+    showToast('⚠ Wypełnij przynajmniej Tytuł i Autora', false);
+    return;
+  }
+
+  if (!await ensureProjectFolder()) return;
+
+  // Write book HTML
+  const html = generateHtml();
+  try {
+    const fh = await projectDirHandle.getFileHandle(d.filename, { create: true });
+    const wr = await fh.createWritable();
+    await wr.write(html);
+    await wr.close();
+  } catch (e) {
+    showToast(`⚠ Błąd zapisu ${d.filename}: ${e.message}`, false);
+    return;
+  }
+
+  // Update polka.html only for new books (not when editing)
+  const category = document.getElementById('category')?.value;
+  if (category && !isEditMode) {
+    try {
+      await updatePolkaHtml(d, category);
+      showToast(`✓ ${d.filename} zapisany · polka.html zaktualizowana`);
+    } catch (e) {
+      showToast(`✓ ${d.filename} zapisany — polka.html zaktualizuj ręcznie (${e.message})`, true);
+    }
+  } else if (isEditMode) {
+    showToast(`✓ ${d.filename} zaktualizowany`);
+  } else {
+    showToast(`✓ ${d.filename} zapisany (wybierz Kategorię, żeby auto-zaktualizować polka.html)`);
+  }
+}
+
+async function updatePolkaHtml(d, category) {
+  const polkaHandle = await projectDirHandle.getFileHandle('polka.html');
+  const polkaFile = await polkaHandle.getFile();
+  const polkaText = await polkaFile.text();
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(polkaText, 'text/html');
+
+  let targetCat = null;
+  doc.querySelectorAll('.polka-cat').forEach(cat => {
+    if (cat.querySelector('.polka-cat__label')?.textContent?.trim() === category) {
+      targetCat = cat;
+    }
+  });
+  if (!targetCat) throw new Error(`kategoria "${category}" nie znaleziona`);
+
+  if (targetCat.querySelector(`a[href="/${d.filename}"]`)) {
+    throw new Error(`/${d.filename} już jest w polka.html`);
+  }
+
+  const entry = doc.createElement('a');
+  entry.className = 'polka-entry';
+  entry.href = `/${d.filename}`;
+
+  const coverInner = d.coverPath
+    ? `<img src="${escHtml(d.coverPath)}" alt="${escHtml(d.coverAlt)}" width="112" height="168" sizes="84px" loading="eager" decoding="async" />`
+    : `<span style="display:flex;align-items:center;justify-content:center;width:84px;height:126px;background:var(--accent-dim);border-radius:2px;font-family:var(--font-display);font-size:12px;color:var(--accent);text-align:center;padding:4px;line-height:1.3">${escHtml(d.title)}</span>`;
+
+  entry.innerHTML = `<span class="polka-entry__cover">${coverInner}</span><span class="polka-entry__meta"><span class="polka-entry__title">${escHtml(d.title)}</span><span class="polka-entry__author">${escHtml(d.author)}</span><span class="polka-entry__hint">Czytaj analizę</span></span>`;
+
+  if (targetCat.classList.contains('polka-cat--rest')) {
+    targetCat.classList.remove('polka-cat--rest');
+    targetCat.classList.add('polka-cat--open');
+    const restP = targetCat.querySelector('.polka-cat__rest');
+    if (restP) restP.replaceWith(entry);
+    else targetCat.appendChild(entry);
+  } else {
+    targetCat.appendChild(entry);
+  }
+
+  const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+  const wr = await polkaHandle.createWritable();
+  await wr.write(newHtml);
+  await wr.close();
+}
+
+// ——— Load existing book ———
+async function loadBookFile() {
+  if (!window.showOpenFilePicker) {
+    showToast('⚠ Użyj Chrome lub Edge', false);
+    return;
+  }
+  let fileHandle;
+  try {
+    [fileHandle] = await window.showOpenFilePicker({
+      types: [{ description: 'HTML', accept: { 'text/html': ['.html'] } }],
+      multiple: false,
+    });
+  } catch (e) {
+    if (e.name !== 'AbortError') showToast(`⚠ Błąd: ${e.message}`, false);
+    return;
+  }
+
+  const file = await fileHandle.getFile();
+  const text = await file.text();
+
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, 'text/html');
+  const dataEl = doc.getElementById('booksfera-data');
+
+  if (!dataEl) {
+    showToast('⚠ Ten plik nie zawiera danych generatora. Zapisz go najpierw przez generator.', false);
+    return;
+  }
+
+  let data;
+  try {
+    data = JSON.parse(dataEl.textContent);
+  } catch (e) {
+    showToast('⚠ Błąd odczytu danych: ' + e.message, false);
+    return;
+  }
+
+  if (!data.filename) data.filename = fileHandle.name;
+
+  populateFromData(data);
+  isEditMode = true;
+  document.getElementById('editBadge').style.display = 'inline-flex';
+  document.getElementById('page-title-el').textContent = `Edytujesz: ${data.title || fileHandle.name}`;
+  document.getElementById('page-subtitle-el').textContent = 'Zmień co chcesz → kliknij „Zapisz do projektu" → plik zostanie nadpisany.';
+  showToast(`✓ Wczytano: ${data.title || fileHandle.name}`);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function populateFromData(data) {
+  const set = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+  set('title', data.title);
+  set('author', data.author);
+  set('year', data.year);
+  set('genre', data.genre);
+  set('readingTime', data.readingTime);
+  set('form', data.form);
+  set('lede', data.lede);
+  set('metaDesc', data.metaDesc);
+  set('coverPath', data.coverPath);
+  set('coverAlt', data.coverAlt);
+  set('filename', (data.filename || '').replace(/\.html$/, ''));
+  set('relatedLead', data.relatedLead);
+  set('s1title', data.s1title || 'Overview');
+  set('s1', data.s1);
+  set('s2title', data.s2title || 'Atmosphere & prose');
+  set('s2', data.s2);
+  set('s3title', data.s3title || 'Character & tension');
+  set('s3', data.s3);
+  set('s4title', data.s4title || 'Verdict');
+  set('s4', data.s4);
+
+  if (data.category) {
+    const cat = document.getElementById('category');
+    if (cat) cat.value = data.category;
+  }
+
+  faqItems = [];
+  relatedItems = [];
+  (data.faq || []).forEach(f => addFaq(f.q, f.a));
+  (data.related || []).forEach(r => {
+    if (relatedItems.length < 3) {
+      const id = Date.now() + Math.random();
+      relatedItems.push({ id, title: r.title || '', author: r.author || '', genre: r.genre || '', excerpt: r.excerpt || '', href: r.href || 'book.html' });
+    }
+  });
+  renderRelated();
+  updatePreview();
+  updateFilenamePreview();
+}
+
+// ——— Delete book ———
+const SYSTEM_FILES = new Set([
+  'index.html', 'polka.html', 'book.html', 'reader.html',
+  'o-booksferze.html', 'prywatnosc.html', 'regulamin.html',
+  'booksfera-generator.html', 'samolubny-gen.html',
+]);
+
+async function showDeletePanel() {
+  if (!await ensureProjectFolder()) return;
+
+  const files = await listBookFiles();
+  if (!files.length) {
+    showToast('Brak książek do usunięcia w tym folderze', false);
+    return;
+  }
+
+  const select = document.getElementById('deleteSelect');
+  select.innerHTML = files.map(f => `<option value="${f}">${f}</option>`).join('');
+  document.getElementById('deleteOverlay').classList.add('open');
+}
+
+function hideDeletePanel() {
+  document.getElementById('deleteOverlay').classList.remove('open');
+}
+
+async function listBookFiles() {
+  const files = [];
+  for await (const [name] of projectDirHandle.entries()) {
+    if (name.endsWith('.html') && !SYSTEM_FILES.has(name)) {
+      files.push(name);
+    }
+  }
+  return files.sort();
+}
+
+async function confirmDelete() {
+  const filename = document.getElementById('deleteSelect').value;
+  if (!filename) return;
+  if (!confirm(`Na pewno usunąć "${filename}" i usunąć wpis z polka.html?\n\nTej operacji nie można cofnąć.`)) return;
+
+  hideDeletePanel();
+
+  // Remove from polka.html
+  try {
+    const polkaHandle = await projectDirHandle.getFileHandle('polka.html');
+    const polkaFile = await polkaHandle.getFile();
+    const polkaText = await polkaFile.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(polkaText, 'text/html');
+    const entry = doc.querySelector(`a.polka-entry[href="/${filename}"]`);
+    if (entry) {
+      entry.remove();
+      const newHtml = '<!DOCTYPE html>\n' + doc.documentElement.outerHTML;
+      const wr = await polkaHandle.createWritable();
+      await wr.write(newHtml);
+      await wr.close();
+    }
+  } catch (e) {
+    showToast(`⚠ Błąd aktualizacji polka.html: ${e.message}`, false);
+    return;
+  }
+
+  // Delete the file
+  try {
+    await projectDirHandle.removeEntry(filename);
+  } catch (e) {
+    showToast(`⚠ Nie udało się usunąć pliku: ${e.message}`, false);
+    return;
+  }
+
+  showToast(`✓ Usunięto "${filename}" i wpis z polka.html`);
+}
+
+// ——— Load example ———
+function loadExample() {
+  document.getElementById('title').value = 'Samolubny Gen';
+  document.getElementById('author').value = 'Richard Dawkins';
+  document.getElementById('year').value = '1976';
+  document.getElementById('genre').value = 'Popular science';
+  document.getElementById('readingTime').value = 'Focused · ~10 hours';
+  document.getElementById('form').value = 'Non-fiction';
+  document.getElementById('lede').value = 'Rewolucyjna teoria ewolucji — jak geny kierują zachowaniem istot żywych i co z tego wynika dla nas.';
+  document.getElementById('filename').value = 'samolubny-gen';
+  document.getElementById('relatedLead').value = 'Te same pytania, inne odpowiedzi.';
+  document.getElementById('s1').value = 'Dawkins proponuje radykalną zmianę perspektywy: zamiast patrzeć na ewolucję z punktu widzenia gatunku czy organizmu, spójrzmy oczami genu.\n\nKsiążka napisana w 1976 roku do dziś pozostaje jednym z najbardziej prowokacyjnych i czytanych dzieł popularnonaukowych w historii biologii.';
+  document.getElementById('s2').value = 'Styl Dawkinsa jest rzadką kombinacją precyzji naukowej i literackiej wyrazistości. Metafory działają — "samolubny gen" nie jest tylko chwytliwym tytułem, lecz konkretnym modelem myślowym, który autor konsekwentnie rozwija przez całą książkę.';
+  document.getElementById('s3').value = 'Centralne napięcie tkwi w paradoksie: geny są "samolubne", ale produkują altruizm. Dawkins tłumaczy zjawiska współpracy, poświęcenia i miłości rodzicielskiej przez mechanizm doboru krewniaczego bez potrzeby odwoływania się do intencji czy moralności.';
+  document.getElementById('s4').value = 'Jeśli interesujesz się biologią, filozofią umysłu lub pytaniem "dlaczego jesteśmy tacy, jacy jesteśmy" — ta książka jest obowiązkowa. Nie zgadzaj się z Dawkinsem: to najlepszy powód, żeby ją przeczytać.\n\nDla czytelnika biznesowego: model myślowy genów przydaje się zaskakująco często przy analizie systemów i bodźców.';
+  faqItems = [];
+  relatedItems = [];
+  addFaq('Czy muszę znać biologię?', 'Nie. Dawkins wyjaśnia wszystko od podstaw, a analogie są dostępne dla każdego czytelnika z otwartym umysłem.');
+  addFaq('Czy to trudna lektura?', 'Wymaga skupienia, ale nie wiedzy specjalistycznej. Najlepiej czytać w dłuższych sesjach — argumenty się nawarstwiają.');
+  addRelated();
+  setTimeout(() => {
+    const inputs = document.querySelectorAll('.related-item')[0]?.querySelectorAll('input');
+    if (inputs) {
+      inputs[0].value = 'Ślepy Zegarmistrz';
+      inputs[1].value = 'Richard Dawkins';
+      inputs[2].value = 'Popular science';
+      inputs[3].value = 'Jak ślepa ewolucja tworzy złożoność.';
+      inputs[4].value = 'book.html';
+    }
+  }, 100);
+  isEditMode = false;
+  document.getElementById('editBadge').style.display = 'none';
+  document.getElementById('page-title-el').textContent = 'Nowa strona książki';
+  document.getElementById('page-subtitle-el').textContent = 'Wypełnij formularz → kliknij „Zapisz do projektu" → plik trafi do folderu i pojawi się na Półce.';
+  updatePreview();
+  updateFilenamePreview();
+  showToast('✓ Przykład załadowany');
+}
+</script>
+
+</body>
+</html>
