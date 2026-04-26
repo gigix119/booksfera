@@ -575,5 +575,131 @@
     </footer>
 
     <script src="js/app.js" defer></script>
+    <script>
+      (function () {
+        var STORAGE_KEY = 'booksfera_reviews_samolubny';
+
+        function getReviews() {
+          try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+          catch (e) { return []; }
+        }
+
+        function saveReviews(reviews) {
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); }
+          catch (e) {}
+        }
+
+        function esc(str) {
+          var d = document.createElement('div');
+          d.textContent = str;
+          return d.innerHTML;
+        }
+
+        function renderStars(count) {
+          return '★'.repeat(count) + '☆'.repeat(5 - count);
+        }
+
+        function formatDate(iso) {
+          try {
+            return new Date(iso).toLocaleDateString('pl-PL', {
+              day: 'numeric', month: 'long', year: 'numeric'
+            });
+          } catch (e) { return ''; }
+        }
+
+        function renderList() {
+          var list = document.getElementById('rrList');
+          if (!list) return;
+          var reviews = getReviews();
+          if (!reviews.length) {
+            list.innerHTML = '<p class="rr-empty">Bądź pierwszą osobą, która podzieli się opinią.</p>';
+            return;
+          }
+          list.innerHTML = reviews.map(function (r) {
+            return '<article class="rr-card">' +
+              '<div class="rr-card__header">' +
+                '<div class="rr-card__meta">' +
+                  '<span class="rr-card__name">' + esc(r.name || 'Czytelnik') + '</span>' +
+                  '<span class="rr-card__stars" aria-label="' + r.rating + ' z 5 gwiazdek">' +
+                    renderStars(r.rating) +
+                  '</span>' +
+                '</div>' +
+                '<time class="rr-card__date" datetime="' + esc(r.date) + '">' +
+                  formatDate(r.date) +
+                '</time>' +
+              '</div>' +
+              '<p class="rr-card__text">' + esc(r.text) + '</p>' +
+            '</article>';
+          }).join('');
+        }
+
+        /* Stars */
+        var selectedRating = 0;
+        var stars = document.querySelectorAll('.rr-star');
+
+        stars.forEach(function (star) {
+          star.addEventListener('mouseenter', function () {
+            var val = +this.dataset.value;
+            stars.forEach(function (s) {
+              s.classList.toggle('is-hover', +s.dataset.value <= val);
+            });
+          });
+          star.addEventListener('mouseleave', function () {
+            stars.forEach(function (s) { s.classList.remove('is-hover'); });
+          });
+          star.addEventListener('click', function () {
+            selectedRating = +this.dataset.value;
+            stars.forEach(function (s) {
+              s.classList.toggle('is-active', +s.dataset.value <= selectedRating);
+            });
+            document.getElementById('rrStarsError').classList.remove('is-visible');
+          });
+        });
+
+        /* Form submit */
+        var form = document.getElementById('rrForm');
+        if (form) {
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var textEl = document.getElementById('rrText');
+            var text = textEl.value.trim();
+            var valid = true;
+
+            if (!selectedRating) {
+              document.getElementById('rrStarsError').classList.add('is-visible');
+              valid = false;
+            }
+            if (!text) {
+              document.getElementById('rrTextError').classList.add('is-visible');
+              textEl.focus();
+              valid = false;
+            } else {
+              document.getElementById('rrTextError').classList.remove('is-visible');
+            }
+            if (!valid) return;
+
+            var name = document.getElementById('rrName').value.trim();
+            var reviews = getReviews();
+            reviews.unshift({
+              name: name,
+              rating: selectedRating,
+              text: text,
+              date: new Date().toISOString()
+            });
+            saveReviews(reviews);
+
+            form.reset();
+            selectedRating = 0;
+            stars.forEach(function (s) { s.classList.remove('is-active'); });
+            document.getElementById('rrStarsError').classList.remove('is-visible');
+            document.getElementById('rrTextError').classList.remove('is-visible');
+
+            renderList();
+          });
+        }
+
+        renderList();
+      })();
+    </script>
   </body>
 </html>
