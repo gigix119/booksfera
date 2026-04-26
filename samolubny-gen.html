@@ -508,6 +508,62 @@
       </article>
     </main>
 
+    <section
+      id="opinie"
+      class="rr-section container container--narrow"
+      aria-labelledby="opinie-heading"
+      data-reveal
+    >
+      <h2 id="opinie-heading" class="book-article__heading">Opinie czytelników</h2>
+
+      <form class="rr-form" id="rrForm" novalidate>
+        <div class="rr-form__field">
+          <label for="rrName" class="rr-form__label">
+            Imię <span class="rr-form__optional">(opcjonalne)</span>
+          </label>
+          <input
+            type="text"
+            id="rrName"
+            class="rr-form__input"
+            placeholder="np. Anna"
+            autocomplete="off"
+            maxlength="60"
+          />
+        </div>
+
+        <div class="rr-form__field">
+          <span id="rrStarsLabel" class="rr-form__label">Ocena</span>
+          <div class="rr-stars" role="group" aria-labelledby="rrStarsLabel" id="rrStars">
+            <button type="button" class="rr-star" data-value="1" aria-label="1 gwiazdka">★</button>
+            <button type="button" class="rr-star" data-value="2" aria-label="2 gwiazdki">★</button>
+            <button type="button" class="rr-star" data-value="3" aria-label="3 gwiazdki">★</button>
+            <button type="button" class="rr-star" data-value="4" aria-label="4 gwiazdki">★</button>
+            <button type="button" class="rr-star" data-value="5" aria-label="5 gwiazdek">★</button>
+          </div>
+          <span class="rr-form__error" id="rrStarsError" role="alert">Wybierz ocenę.</span>
+        </div>
+
+        <div class="rr-form__field">
+          <label for="rrText" class="rr-form__label">
+            Opinia <abbr title="wymagane">*</abbr>
+          </label>
+          <textarea
+            id="rrText"
+            class="rr-form__textarea"
+            rows="4"
+            required
+            placeholder="Podziel się wrażeniami z lektury…"
+            maxlength="2000"
+          ></textarea>
+          <span class="rr-form__error" id="rrTextError" role="alert">Napisz krótką opinię.</span>
+        </div>
+
+        <button type="submit" class="btn btn--primary rr-form__submit">Wyślij opinię</button>
+      </form>
+
+      <div id="rrList" class="rr-list" aria-live="polite" aria-label="Opinie czytelników"></div>
+    </section>
+
     <footer class="site-footer site-footer--gateway site-footer--book">
       <div class="container">
         <div class="site-footer__links">
